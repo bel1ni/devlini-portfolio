@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "DEVLINI | Mariane Belini",
+    "description": "Portfolio, projetos e links de Mariane Belini. Desenvolvedora full-stack e fundadora do controledegado.app."
+  },
+  "header": {
+    "advertise": "Anuncie"
+  },
+  "hero": {
+    "contact": "Contato"
+  },
+  "sections": {
+    "building": "O que estou construindo",
+    "links": "Links",
+    "creations": "Minhas criações"
+  },
+  "status": {
+    "live": "no ar",
+    "building": "construindo",
+    "paused": "pausado"
+  },
+  "ads": {
+    "sponsored": "Patrocinado",
+    "emptyTitle": "Anuncie aqui",
+    "emptyDescription": "Seu produto neste espaço, a partir de R$ 19",
+    "emptyCta": "Reservar slot"
+  },
+  "footer": {
+    "advertise": "Anuncie aqui",
+    "builtWith": "Feito com Next.js — código aberto em breve"
+  },
+  "thanks": {
+    "paidTitle": "Pagamento confirmado! 🎉",
+    "paidBody": "Seu slot está reservado. Agora envie a arte do anúncio pelo link abaixo — após a aprovação (até 24h), o card entra no ar. Você também recebe este link por e-mail.",
+    "artCta": "Enviar a arte do anúncio",
+    "genericTitle": "Obrigada!",
+    "genericBody": "Se você concluiu um pagamento, o link para envio da arte chega no seu e-mail. Qualquer dúvida, fale comigo pelo e-mail do rodapé."
+  },
+  "artForm": {
+    "title": "Arte do seu anúncio",
+    "body": "Preencha os dados do card. Após a aprovação (até 24h), ele entra no ar automaticamente.",
+    "fieldTitle": "Título (até 40 caracteres)",
+    "fieldTitlePlaceholder": "Nome do seu produto",
+    "fieldDescription": "Descrição (até 90 caracteres)",
+    "fieldDescriptionPlaceholder": "O que ele faz, em uma linha",
+    "fieldUrl": "Link de destino",
+    "fieldImage": "Imagem (1:1, PNG/JPG, até 500 KB)",
+    "imageHint": "Quadrada fica melhor no card.",
+    "submit": "Enviar para revisão",
+    "sending": "Enviando…",
+    "success": "Arte recebida! Vou revisar em até 24h e o card entra no ar automaticamente. Você recebe um e-mail quando for aprovado.",
+    "genericError": "Não foi possível enviar. Confira os campos e tente de novo.",
+    "imageTooLarge": "A imagem passou de 500 KB — comprima e tente de novo.",
+    "invalidTitle": "Link inválido ou expirado",
+    "invalidBody": "Este link de envio de arte não é válido. Use o link do e-mail de confirmação ou fale comigo."
+  },
+  "advertise": {
+    "title": "Anuncie para quem constrói",
+    "subtitle": "Cards de anúncio discretos, no meio de um público de desenvolvedores, recrutadores e criadores que acompanham meu trabalho.",
+    "honesty": "Site recém-lançado: os preços abaixo são de lançamento e os números de audiência serão publicados aqui mensalmente, sem inflar.",
+    "mostPopular": "Mais popular",
+    "perSlot": "por slot",
+    "cta": "Reservar meu slot",
+    "ctaNote": "No ar em até 24h após aprovação",
+    "emailSubject": "Quero anunciar no Link Hub",
+    "features": {
+      "week": [
+        "Card no slot lateral em todas as páginas",
+        "Link direto com rel=\"sponsored\"",
+        "Ideal para testar o espaço"
+      ],
+      "month": [
+        "Card no slot lateral em todas as páginas",
+        "Link direto com rel=\"sponsored\"",
+        "Troca de arte 1x no período",
+        "Melhor custo por dia"
+      ],
+      "quarter": [
+        "Card no slot lateral em todas as páginas",
+        "Link direto com rel=\"sponsored\"",
+        "Troca de arte 1x por mês",
+        "Preço travado por 3 meses"
+      ]
+    },
+    "specsTitle": "Especificações da arte",
+    "specs": [
+      "Imagem quadrada (1:1), PNG ou JPG, até 500 KB",
+      "Título de até 40 caracteres",
+      "Descrição de até 90 caracteres",
+      "URL de destino (com ou sem UTM próprio)"
+    ],
+    "policyTitle": "Política de conteúdo",
+    "policy": [
+      "Sem apostas, cassino ou jogos de azar",
+      "Sem conteúdo adulto ou enganoso",
+      "Sem esquemas de enriquecimento rápido",
+      "Todo anúncio passa por aprovação em até 24h; se recusado, o valor é devolvido integralmente"
+    ],
+    "howTitle": "Como funciona",
+    "how": [
+      "Você escolhe o plano e me chama no e-mail",
+      "Envia a arte, o texto e o link de destino",
+      "Aprovo em até 24h e o card entra no ar",
+      "No fim do período o slot é liberado automaticamente"
+    ]
+  }
+}

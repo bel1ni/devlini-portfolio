@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "DEVLINI | Mariane Belini",
+    "description": "Portfolio, projects and links of Mariane Belini. Full-stack developer and founder of controledegado.app."
+  },
+  "header": {
+    "advertise": "Advertise"
+  },
+  "hero": {
+    "contact": "Contact"
+  },
+  "sections": {
+    "building": "What I'm building",
+    "links": "Links",
+    "creations": "My creations"
+  },
+  "status": {
+    "live": "live",
+    "building": "building",
+    "paused": "paused"
+  },
+  "ads": {
+    "sponsored": "Sponsored",
+    "emptyTitle": "Advertise here",
+    "emptyDescription": "Your product in this spot, from R$ 19",
+    "emptyCta": "Book a slot"
+  },
+  "footer": {
+    "advertise": "Advertise here",
+    "builtWith": "Built with Next.js — open source soon"
+  },
+  "thanks": {
+    "paidTitle": "Payment confirmed! 🎉",
+    "paidBody": "Your slot is reserved. Now send your ad artwork through the link below — after approval (within 24h), the card goes live. You'll also get this link by email.",
+    "artCta": "Send the ad artwork",
+    "genericTitle": "Thank you!",
+    "genericBody": "If you completed a payment, the artwork submission link will arrive in your email. Questions? Reach me via the footer email."
+  },
+  "artForm": {
+    "title": "Your ad artwork",
+    "body": "Fill in the card details. After approval (within 24h) it goes live automatically.",
+    "fieldTitle": "Title (up to 40 characters)",
+    "fieldTitlePlaceholder": "Your product name",
+    "fieldDescription": "Description (up to 90 characters)",
+    "fieldDescriptionPlaceholder": "What it does, in one line",
+    "fieldUrl": "Destination link",
+    "fieldImage": "Image (1:1, PNG/JPG, up to 500 KB)",
+    "imageHint": "Square works best in the card.",
+    "submit": "Submit for review",
+    "sending": "Sending…",
+    "success": "Artwork received! I'll review it within 24h and the card goes live automatically. You'll get an email once it's approved.",
+    "genericError": "Couldn't submit. Check the fields and try again.",
+    "imageTooLarge": "The image exceeds 500 KB — compress it and try again.",
+    "invalidTitle": "Invalid or expired link",
+    "invalidBody": "This artwork submission link isn't valid. Use the link from your confirmation email or contact me."
+  },
+  "advertise": {
+    "title": "Advertise to people who build",
+    "subtitle": "Understated ad cards, in front of an audience of developers, recruiters and creators who follow my work.",
+    "honesty": "Recently launched site: prices below are launch prices, and audience numbers will be published here monthly — never inflated.",
+    "mostPopular": "Most popular",
+    "perSlot": "per slot",
+    "cta": "Book my slot",
+    "ctaNote": "Live within 24h after approval",
+    "emailSubject": "I want to advertise on Link Hub",
+    "features": {
+      "week": [
+        "Card in the sidebar slot on every page",
+        "Direct link with rel=\"sponsored\"",
+        "Great for testing the space"
+      ],
+      "month": [
+        "Card in the sidebar slot on every page",
+        "Direct link with rel=\"sponsored\"",
+        "One artwork swap during the period",
+        "Best cost per day"
+      ],
+      "quarter": [
+        "Card in the sidebar slot on every page",
+        "Direct link with rel=\"sponsored\"",
+        "One artwork swap per month",
+        "Price locked for 3 months"
+      ]
+    },
+    "specsTitle": "Artwork specs",
+    "specs": [
+      "Square image (1:1), PNG or JPG, up to 500 KB",
+      "Title up to 40 characters",
+      "Description up to 90 characters",
+      "Destination URL (with or without your own UTM)"
+    ],
+    "policyTitle": "Content policy",
+    "policy": [
+      "No betting, casino or gambling",
+      "No adult or misleading content",
+      "No get-rich-quick schemes",
+      "Every ad is reviewed within 24h; if declined, you get a full refund"
+    ],
+    "howTitle": "How it works",
+    "how": [
+      "Pick a plan and reach out by email",
+      "Send the artwork, copy and destination link",
+      "I approve within 24h and the card goes live",
+      "At the end of the period the slot is released automatically"
+    ]
+  }
+}
