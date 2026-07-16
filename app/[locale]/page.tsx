@@ -60,13 +60,24 @@ export default async function HomePage({
     return ads[n - 1] ?? null;
   });
 
+  // SEO de busca por nome: sameAs liga a entidade "Mariane Belini" aos
+  // perfis oficiais; alternateName cobre variações de busca.
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: profile.name,
+    name: "Mariane Ramalho Belini",
+    alternateName: ["Mariane Belini", "DEVLINI", "bel1ni"],
+    jobTitle:
+      l === "pt" ? "Desenvolvedora Full Stack" : "Full-stack Developer",
     description: profile.headline[l],
     email: `mailto:${profile.email}`,
     url: SITE_URL,
+    image: `${SITE_URL}/avatar.jpg`,
+    sameAs: socialLinks
+      .map((s) => s.url)
+      .filter((u) => u.startsWith("http")),
+    worksFor: { "@type": "Organization", name: "Chateau Labs" },
+    nationality: { "@type": "Country", name: "Brazil" },
   };
 
   return (

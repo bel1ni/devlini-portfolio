@@ -6,6 +6,10 @@ import { listForReview, type DbAd } from "@/lib/ads-db";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  robots: { index: false, follow: false },
+};
+
 // Painel da dona (pt-only): aprovação de anúncios em 1 clique (PRD §4.6).
 export default async function AdminPage({
   params,

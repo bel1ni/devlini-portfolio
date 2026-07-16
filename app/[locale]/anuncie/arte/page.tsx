@@ -8,6 +8,10 @@ import { ArtForm } from "@/components/art-form";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  robots: { index: false, follow: false },
+};
+
 export default async function ArtPage({
   params,
   searchParams,
