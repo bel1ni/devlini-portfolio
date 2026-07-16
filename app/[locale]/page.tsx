@@ -114,7 +114,7 @@ export default async function HomePage({
         </section>
 
         {/* Redes sociais */}
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="rise-in mt-5 flex flex-wrap gap-2">
           {socialLinks.map((s) => (
             <TrackLink
               key={s.id}
@@ -122,7 +122,7 @@ export default async function HomePage({
               eventData={{ id: s.id }}
               href={withUtm(s.url, s.id)}
               aria-label={s.label}
-              className="flex size-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition hover:border-zinc-300 hover:text-zinc-900"
+              className="flex size-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition hover:border-zinc-300 hover:text-zinc-900 active:scale-95"
             >
               <Icon name={s.icon} className="size-4" />
             </TrackLink>
@@ -130,7 +130,7 @@ export default async function HomePage({
         </div>
 
         {/* Stack */}
-        <div className="mt-5 flex flex-wrap gap-1.5">
+        <div className="rise-in mt-5 flex flex-wrap gap-1.5" style={{ animationDelay: "60ms" }}>
           {techStack.map((tech) => (
             <span
               key={tech}
@@ -142,7 +142,11 @@ export default async function HomePage({
         </div>
 
         {/* O que estou construindo */}
-        <Section title={t("building")}>
+        <Section
+          title={t("building")}
+          className="rise-in"
+          style={{ animationDelay: "120ms" }}
+        >
           <div className="grid gap-3 sm:grid-cols-2">
             {projects.map((p) => {
               const body = (
@@ -173,7 +177,8 @@ export default async function HomePage({
                 </>
               );
               const className =
-                "block rounded-xl border border-zinc-200 bg-white p-4 transition hover:border-zinc-300 hover:shadow-sm";
+                "block rounded-xl border border-zinc-200 bg-white p-4 transition hover:border-zinc-300 hover:shadow-sm" +
+                (p.url ? " active:scale-[0.98]" : "");
               return p.url ? (
                 <TrackLink
                   key={p.id}
@@ -196,12 +201,16 @@ export default async function HomePage({
         </Section>
 
         {/* Anúncio inline (mobile) */}
-        <div className="mt-8 lg:hidden">
+        <div className="rise-in mt-8 lg:hidden" style={{ animationDelay: "160ms" }}>
           <AdCard ad={slots[0]} slot={1} locale={l} />
         </div>
 
         {/* Links */}
-        <Section title={t("links")}>
+        <Section
+          title={t("links")}
+          className="rise-in"
+          style={{ animationDelay: "180ms" }}
+        >
           <div className="flex flex-col gap-2.5">
             {mainLinks.map((link) => (
               <TrackLink
@@ -209,14 +218,14 @@ export default async function HomePage({
                 event="link_click"
                 eventData={{ id: link.id }}
                 href={withUtm(link.url, link.id)}
-                className="group flex items-center justify-between rounded-xl border border-zinc-200 bg-white px-4 py-3.5 transition hover:border-zinc-300 hover:shadow-sm"
+                className="group flex items-center justify-between rounded-xl border border-zinc-200 bg-white px-4 py-3.5 transition hover:border-zinc-300 hover:shadow-sm active:scale-[0.98]"
               >
                 <span className="text-sm font-medium text-zinc-800">
                   {link.label[l]}
                 </span>
                 <Icon
                   name="external"
-                  className="size-4 text-zinc-300 transition group-hover:text-emerald-600"
+                  className="size-4 text-zinc-300 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-emerald-600"
                 />
               </TrackLink>
             ))}
@@ -224,12 +233,16 @@ export default async function HomePage({
         </Section>
 
         {/* Anúncio inline (mobile) */}
-        <div className="mt-8 lg:hidden">
+        <div className="rise-in mt-8 lg:hidden" style={{ animationDelay: "220ms" }}>
           <AdCard ad={slots[1]} slot={2} locale={l} />
         </div>
 
         {/* Minhas criações */}
-        <Section title={t("creations")}>
+        <Section
+          title={t("creations")}
+          className="rise-in"
+          style={{ animationDelay: "240ms" }}
+        >
           <div className="flex flex-col gap-3">
             {products.map((prod) => (
               <div
@@ -252,10 +265,13 @@ export default async function HomePage({
                     href={withUtm(prod.url, `product-${prod.id}`)}
                     target="_blank"
                     rel="noopener"
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                    className="group inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700 active:scale-[0.97]"
                   >
                     {prod.cta[l]}
-                    <Icon name="arrow" className="size-4" />
+                    <Icon
+                      name="arrow"
+                      className="size-4 transition group-hover:translate-x-0.5"
+                    />
                   </TrackLink>
                 </div>
               </div>
@@ -264,14 +280,17 @@ export default async function HomePage({
         </Section>
 
         {/* Anúncio inline (mobile) */}
-        <div className="mt-8 lg:hidden">
+        <div className="rise-in mt-8 lg:hidden" style={{ animationDelay: "280ms" }}>
           <AdCard ad={slots[2]} slot={3} locale={l} />
         </div>
       </div>
 
       {/* Sidebar de anúncios (desktop) — PRD §4.5 */}
       <aside className="hidden lg:block">
-        <div className="sticky top-6 mt-4 flex flex-col gap-3">
+        <div
+          className="rise-in sticky top-6 mt-4 flex flex-col gap-3"
+          style={{ animationDelay: "200ms" }}
+        >
           <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-300">
             {tCreations("sponsored")}
           </p>

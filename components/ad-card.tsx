@@ -25,7 +25,7 @@ export async function AdCard({
     return (
       <Link
         href="/anuncie"
-        className="group flex flex-col justify-between rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 p-4 transition hover:border-emerald-500 hover:bg-emerald-50/40"
+        className="group flex flex-col justify-between rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 p-4 transition hover:border-emerald-500 hover:bg-emerald-50/40 active:scale-[0.98]"
       >
         <div>
           <p className="text-sm font-semibold text-zinc-700 group-hover:text-emerald-700">
@@ -35,7 +35,10 @@ export async function AdCard({
         </div>
         <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-emerald-600">
           {t("emptyCta")}
-          <Icon name="arrow" className="size-3.5" />
+          <Icon
+            name="arrow"
+            className="size-3.5 transition group-hover:translate-x-0.5"
+          />
         </span>
       </Link>
     );
@@ -48,7 +51,7 @@ export async function AdCard({
       href={withUtm(ad.url, `ad-slot-${slot}`)}
       target="_blank"
       rel="sponsored noopener"
-      className="group block rounded-xl border border-zinc-200 bg-white p-4 transition hover:border-zinc-300 hover:shadow-sm"
+      className="group block rounded-xl border border-zinc-200 bg-white p-4 transition hover:border-zinc-300 hover:shadow-sm active:scale-[0.98]"
     >
       {ad.imageUrl && (
         // eslint-disable-next-line @next/next/no-img-element

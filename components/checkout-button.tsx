@@ -39,8 +39,8 @@ export function CheckoutButton({
       disabled={loading}
       className={
         featured
-          ? "mt-5 rounded-lg bg-emerald-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-50"
-          : "mt-5 rounded-lg border border-zinc-300 px-4 py-2.5 text-center text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 disabled:opacity-50"
+          ? "mt-5 rounded-lg bg-emerald-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-emerald-700 active:scale-[0.97] disabled:opacity-50"
+          : "mt-5 rounded-lg border border-zinc-300 px-4 py-2.5 text-center text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 active:scale-[0.97] disabled:opacity-50"
       }
     >
       {loading ? "…" : label}

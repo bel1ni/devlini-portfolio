@@ -7,3 +7,27 @@
 html {
   color-scheme: light;
 }
+
+/* Micro-interações — decisões guiadas pela skill emil-design-eng:
+   entrada só em conteúdo abaixo do hero (protege o LCP), stagger curto,
+   easing forte (built-ins são fracos), apenas transform/opacity (GPU). */
+:root {
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.rise-in {
+  animation: rise-in 350ms var(--ease-out-strong) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in {
+    animation: none;
+  }
+}

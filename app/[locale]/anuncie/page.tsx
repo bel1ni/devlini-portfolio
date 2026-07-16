@@ -32,7 +32,7 @@ export default async function AdvertisePage({
   return (
     <div className="mx-auto max-w-3xl">
       {/* Hero da página de anúncios */}
-      <section className="mt-8 text-center">
+      <section className="rise-in mt-8 text-center">
         <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
           {t("title")}
         </h1>
@@ -45,7 +45,10 @@ export default async function AdvertisePage({
       </section>
 
       {/* Tabela de preços — GBB + decoy (PRD §4.7) */}
-      <section className="mt-10 grid gap-4 sm:grid-cols-3">
+      <section
+        className="rise-in mt-10 grid gap-4 sm:grid-cols-3"
+        style={{ animationDelay: "80ms" }}
+      >
         {adPlans.map((plan) => (
           <div
             key={plan.id}
@@ -93,8 +96,8 @@ export default async function AdvertisePage({
                 href={mailto(plan.id)}
                 className={
                   plan.featured
-                    ? "mt-5 rounded-lg bg-emerald-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-emerald-700"
-                    : "mt-5 rounded-lg border border-zinc-300 px-4 py-2.5 text-center text-sm font-semibold text-zinc-700 transition hover:border-zinc-400"
+                    ? "mt-5 rounded-lg bg-emerald-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-emerald-700 active:scale-[0.97]"
+                    : "mt-5 rounded-lg border border-zinc-300 px-4 py-2.5 text-center text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 active:scale-[0.97]"
                 }
               >
                 {t("cta")}
@@ -108,7 +111,10 @@ export default async function AdvertisePage({
       </section>
 
       {/* Como funciona / Specs / Política */}
-      <section className="mt-12 grid gap-8 sm:grid-cols-3">
+      <section
+        className="rise-in mt-12 grid gap-8 sm:grid-cols-3"
+        style={{ animationDelay: "160ms" }}
+      >
         {(
           [
             ["howTitle", "how"],

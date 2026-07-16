@@ -93,7 +93,7 @@ export function ArtForm({ token }: { token: string }) {
       <button
         type="submit"
         disabled={state === "sending"}
-        className="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-50"
+        className="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 active:scale-[0.97] disabled:opacity-50"
       >
         {state === "sending" ? t("sending") : t("submit")}
       </button>
