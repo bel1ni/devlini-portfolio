@@ -12,7 +12,7 @@ export const profile = {
     en: "Full-stack developer & founder of controledegado.app",
   } satisfies Localized,
   bio: {
-    pt: "Dev full stack na Chateau Labs, construindo SaaS para o agronegócio. Criei do zero o controledegado.app — gestão de rebanho de ponta a ponta, do banco de dados à Play Store.",
+    pt: "Dev full stack com domínio em Inteligência Artificial, construindo melhorias para o agronegócio. Criei do zero o controledegado.app — gestão de rebanho de ponta a ponta, do banco de dados à Play Store.",
     en: "Full-stack dev at Chateau Labs, building SaaS for agribusiness. I created controledegado.app from scratch — livestock management end to end, from the database to the Play Store.",
   } satisfies Localized,
   location: { pt: "Brasil", en: "Brazil" } satisfies Localized,
@@ -91,6 +91,14 @@ export const mainLinks: MainLink[] = [
     url: "https://controledegado.app",
   },
   {
+    id: "devlini-agro",
+    label: {
+      pt: "DEVLINI Agro — notícias do agronegócio",
+      en: "DEVLINI Agro — agribusiness news",
+    },
+    url: "/agro",
+  },
+  {
     id: "curriculo",
     label: { pt: "Currículo (PDF)", en: "Résumé (PDF)" },
     url: "/curriculo-mariane-belini.pdf",
@@ -122,6 +130,17 @@ export const projects: Project[] = [
     tech: ["React", "TypeScript", "Supabase", "PWA"],
     status: "live",
     url: "https://controledegado.app",
+  },
+  {
+    id: "devlini-agro",
+    name: "DEVLINI Agro",
+    description: {
+      pt: "Portal de notícias do agronegócio brasileiro: pecuária, agricultura, mercado e clima agregados de fontes como Canal Rural e Embrapa, com resumos por IA e briefing diário por e-mail.",
+      en: "Brazilian agribusiness news portal: livestock, farming, market and weather aggregated from sources like Canal Rural and Embrapa, with AI summaries and a daily email briefing.",
+    },
+    tech: ["Next.js", "Supabase", "OpenRouter"],
+    status: "live",
+    url: "/agro",
   },
   {
     id: "techjournal",

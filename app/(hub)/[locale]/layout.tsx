@@ -8,7 +8,7 @@ import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { profile, SITE_URL } from "@/content/site";
-import "../globals.css";
+import "../../globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -81,6 +81,13 @@ export default async function LocaleLayout({
               DEVLINI
             </Link>
             <nav className="flex items-center gap-3">
+              {/* Seção pt-BR fora do next-intl — link normal, não o Link do i18n */}
+              <a
+                href="/agro"
+                className="text-sm font-medium text-emerald-700 transition hover:text-emerald-600"
+              >
+                Agro
+              </a>
               <Link
                 href="/anuncie"
                 className="text-sm font-medium text-zinc-500 transition hover:text-zinc-900"

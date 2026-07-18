@@ -4,5 +4,6 @@ import { routing } from "./i18n/routing";
 export default createMiddleware(routing);
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  // "agro" fica fora do next-intl: a seção /agro é pt-BR e tem layout próprio
+  matcher: ["/((?!api|agro|_next|_vercel|.*\\..*).*)"],
 };
