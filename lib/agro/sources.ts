@@ -117,6 +117,33 @@ export const sources: Source[] = [
     uf: null,
 },
 
+{
+    name: "Metsul",
+    url: "https://metsul.com/feed/",
+    category: "Clima",
+    language: "pt-BR",
+    logo: favicon("metsul.com"),
+    uf: null,
+},
+
+{
+    name: "INMET",
+    url: googleNews("site:inmet.gov.br when:45d"),
+    category: "Clima",
+    language: "pt-BR",
+    logo: favicon("inmet.gov.br"),
+    uf: null,
+},
+
+{
+    name: "CONAB",
+    url: googleNews("site:conab.gov.br when:45d"),
+    category: "Mercado",
+    language: "pt-BR",
+    logo: favicon("conab.gov.br"),
+    uf: null,
+},
+
 // Fontes locais do Paraná — avisos de defesa agropecuária (atualização de
 // rebanho, vacinação, documentos) e extensão rural, perto do produtor.
 {

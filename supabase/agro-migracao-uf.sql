@@ -1,4 +1,4 @@
--- Migração DEVLINI Agro — filtro por estado (UF) + limpeza.
+-- Migração AGROLINI — filtro por estado (UF) + limpeza.
 -- Execute no SQL Editor do MESMO projeto Supabase onde rodou o schema
 -- inicial (xbdfxifdfepxnvunyupd, o do Tech Journal).
 

@@ -131,7 +131,7 @@ export default async function NewsPage({ params }: Props) {
     },
     publisher: {
       "@type": "Organization",
-      name: "DEVLINI Agro",
+      name: "AGROLINI",
       url: `${baseUrl}/agro`,
     },
     isBasedOn: news.url,

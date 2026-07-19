@@ -15,7 +15,7 @@ export async function summarizeNewsWithAI({
 		}
 
 		const prompt = `
-Você é um jornalista especializado em agronegócio e redator do DEVLINI Agro, portal de notícias para o produtor rural brasileiro.
+Você é um jornalista especializado em agronegócio e redator do AGROLINI, portal de notícias para o produtor rural brasileiro.
 
 Transforme a notícia abaixo em um briefing editorial claro e rápido de ler.
 
@@ -33,6 +33,7 @@ Regras obrigatórias:
 - explique o que aconteceu
 - explique por que isso é importante
 - destaque impactos para o produtor rural, o mercado e os preços quando relevante
+- termine o texto com uma frase em linguagem simples começando com "Para o produtor:" explicando o efeito prático da notícia na vida de quem produz
 - mantenha tom profissional e jornalístico
 - evite frases genéricas
 - finalize obrigatoriamente com uma frase completa

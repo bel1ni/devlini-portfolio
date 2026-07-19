@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og"
 
-export const alt = "DEVLINI Agro — Notícias do agronegócio brasileiro"
+export const alt = "AGROLINI — Notícias do agronegócio brasileiro"
 
 export const size = {
     width: 1200,
@@ -35,7 +35,7 @@ export default function OpengraphImage() {
                         color: "#6ee7b7",
                     }}
                 >
-                    🌱 DEVLINI Agro
+                    🌱 AGROLINI
                 </div>
 
                 <div

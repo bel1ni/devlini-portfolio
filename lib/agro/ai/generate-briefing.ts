@@ -13,7 +13,7 @@ export type Briefing = {
 // Fallback sem IA: usa a própria descrição de cada notícia.
 function fallbackBriefing(news: NewsItem[]): Briefing {
     return {
-        intro: "Estas são as notícias do agronegócio mais impactantes das últimas 24 horas, selecionadas pelo DEVLINI Agro.",
+        intro: "Estas são as notícias do agronegócio mais impactantes das últimas 24 horas, selecionadas pelo AGROLINI.",
         items: news.map((item) => ({
             news: item,
             summary: item.description,
@@ -37,7 +37,7 @@ export async function generateBriefing(news: NewsItem[]): Promise<Briefing> {
     }))
 
     const prompt = `
-Você é o editor-chefe do DEVLINI Agro e está escrevendo o briefing diário enviado por e-mail a produtores rurais e profissionais do agronegócio.
+Você é o editor-chefe do AGROLINI e está escrevendo o briefing diário enviado por e-mail a produtores rurais e profissionais do agronegócio.
 
 Com base nas notícias abaixo, escreva:
 1. "intro": um parágrafo de abertura (40 a 70 palavras) em português do Brasil resumindo o dia no agronegócio, com tom jornalístico e direto.

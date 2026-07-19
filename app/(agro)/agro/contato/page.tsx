@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contato",
   description:
-    "Entre em contato com o DEVLINI Agro para dúvidas, sugestões, parcerias ou remoção de conteúdo.",
+    "Entre em contato com o AGROLINI para dúvidas, sugestões, parcerias ou remoção de conteúdo.",
   alternates: {
     canonical: "/agro/contato",
   },
@@ -17,7 +17,7 @@ export default function ContatoPage() {
       </h2>
 
       <h1 className="mt-3 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-        Fale com o DEVLINI Agro
+        Fale com o AGROLINI
       </h1>
 
       <p className="mt-5 text-base leading-7 text-zinc-600">
@@ -76,7 +76,7 @@ export default function ContatoPage() {
       </h2>
 
       <p className="mt-3 text-base leading-7 text-zinc-600">
-        O DEVLINI Agro agrega e resume notícias de veículos externos, sempre
+        O AGROLINI agrega e resume notícias de veículos externos, sempre
         com crédito e link para a matéria original. Se você representa um
         veículo e deseja ajustar ou remover algum conteúdo, escreva para o
         e-mail acima que responderemos o mais rápido possível.

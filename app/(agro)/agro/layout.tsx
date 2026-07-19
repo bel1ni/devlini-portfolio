@@ -21,8 +21,8 @@ const baseUrl = getBaseUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "DEVLINI Agro | Notícias do agronegócio brasileiro",
-    template: "%s | DEVLINI Agro",
+    default: "AGROLINI | Notícias do agronegócio brasileiro",
+    template: "%s | AGROLINI",
   },
   description:
     "Notícias do agronegócio: pecuária, agricultura, mercado, clima e política agrícola do Brasil, resumidas por IA para o produtor rural.",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "milho",
     "plano safra",
     "produtor rural",
-    "DEVLINI Agro",
+    "AGROLINI",
   ],
   authors: [{ name: profile.name }],
   creator: profile.name,
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     canonical: "/agro",
   },
   openGraph: {
-    title: "DEVLINI Agro | Notícias do agronegócio brasileiro",
+    title: "AGROLINI | Notícias do agronegócio brasileiro",
     description:
       "Pecuária, agricultura, mercado e clima resumidos por IA em tempo real.",
     url: "/agro",
@@ -60,6 +60,7 @@ export const metadata: Metadata = {
 };
 
 const navLinks = [
+  { href: "/", label: "Início" },
   { href: "/agro/briefing", label: "Briefing" },
   { href: "/agro/bookmarks", label: "Salvos" },
   { href: "/anuncie", label: "Anuncie" },
@@ -74,28 +75,20 @@ export default function AgroLayout({
     <html lang="pt-BR" className={inter.variable}>
       <body className="min-h-screen bg-zinc-50 font-sans text-zinc-900 antialiased">
         <header className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-5 sm:px-6">
-          <div className="flex items-center gap-2">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-sm font-bold tracking-widest text-zinc-900"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/devlini-badge.png"
-                alt=""
-                width={24}
-                height={24}
-                className="size-6"
-              />
-              DEVLINI
-            </Link>
-            <Link
-              href="/agro"
-              className="rounded-full bg-emerald-600 px-2 py-0.5 text-[11px] font-bold uppercase tracking-widest text-white"
-            >
-              Agro
-            </Link>
-          </div>
+          <Link
+            href="/agro"
+            className="flex items-center gap-2 text-sm font-bold tracking-widest text-zinc-900"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/devlini-badge.png"
+              alt=""
+              width={24}
+              height={24}
+              className="size-6"
+            />
+            AGRO<span className="text-emerald-600">LINI</span>
+          </Link>
           <nav className="flex items-center gap-3 sm:gap-4">
             {navLinks.map((link) => (
               <Link

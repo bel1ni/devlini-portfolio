@@ -1,4 +1,4 @@
--- Esquema completo do DEVLINI Agro (referência) — projeto Supabase
+-- Esquema completo do AGROLINI (referência) — projeto Supabase
 -- xbdfxifdfepxnvunyupd (o mesmo do Tech Journal; tabelas prefixadas).
 -- Já aplicado em 19/07/2026 + migração da coluna uf.
 

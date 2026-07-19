@@ -8,6 +8,15 @@ import { saveBookmark, removeBookmark } from "@/lib/agro/supabase/save-bookmark"
 import { hasReadNews } from "@/lib/agro/read-news";
 import { resolveLogo } from "@/lib/agro/logo";
 
+// Sistema de importância: traduz o score de impacto em um rótulo
+// que o produtor entende de relance.
+function impactLabel(impact: number) {
+  if (impact >= 85) return { text: "Urgente", cls: "text-red-600" };
+  if (impact >= 65) return { text: "Alta", cls: "text-amber-600" };
+  if (impact >= 55) return { text: "Média", cls: "text-emerald-700" };
+  return { text: "Baixa", cls: "text-zinc-400" };
+}
+
 type NewsCardProps = {
   id: string | number;
   category: string;
@@ -184,8 +193,10 @@ export default function NewsCard({
           </a>
 
           <span className="shrink-0 text-zinc-400">
-            Impacto{" "}
-            <span className="font-semibold text-emerald-700">{impact}%</span>
+            <span className={`font-semibold ${impactLabel(impact).cls}`}>
+              {impactLabel(impact).text}
+            </span>{" "}
+            · {impact}%
           </span>
         </div>
       </div>

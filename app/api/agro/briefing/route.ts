@@ -68,7 +68,7 @@ export async function GET(request: Request) {
             timeZone: "America/Sao_Paulo",
         }).format(new Date())
 
-        const subject = `Briefing DEVLINI Agro — ${date}`
+        const subject = `Briefing AGROLINI — ${date}`
 
         const emails = Array.from(recipientsByEmail.entries()).map(
             ([email, token]) => ({

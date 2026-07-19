@@ -19,7 +19,7 @@ export async function sendEmails(emails: EmailPayload[]) {
 
     const from =
         process.env.BRIEFING_FROM_EMAIL?.trim() ||
-        "DEVLINI Agro <onboarding@resend.dev>"
+        "AGROLINI <onboarding@resend.dev>"
 
     let sent = 0
 

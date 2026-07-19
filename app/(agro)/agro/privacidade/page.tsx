@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Política de Privacidade",
   description:
-    "Como o devlini.com e a seção DEVLINI Agro coletam e usam informações durante a navegação.",
+    "Como o devlini.com e a seção AGROLINI coletam e usam informações durante a navegação.",
   alternates: {
     canonical: "/agro/privacidade",
   },
@@ -22,7 +22,7 @@ export default function PrivacidadePage() {
       </h1>
 
       <p className="mt-5 text-base leading-7 text-zinc-600">
-        O devlini.com — incluindo a seção de notícias DEVLINI Agro — é um
+        O devlini.com — incluindo a seção de notícias AGROLINI — é um
         projeto independente criado por Mariane Belini. Esta política explica
         como informações podem ser coletadas e usadas durante a navegação no
         site.
@@ -53,7 +53,7 @@ export default function PrivacidadePage() {
       </h2>
 
       <p className="mt-3 text-base leading-7 text-zinc-600">
-        O DEVLINI Agro organiza notícias de fontes externas por meio de RSS,
+        O AGROLINI organiza notícias de fontes externas por meio de RSS,
         exibindo resumos, categorias e links para os conteúdos originais.
       </p>
 
