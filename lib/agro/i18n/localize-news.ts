@@ -30,5 +30,6 @@ export function localizeNews(news: StoredNews, locale: Locale): NewsItem {
         featured: news.featured,
         logo: news.logo,
         publishedAt: news.published_at || news.created_at || "",
+        uf: news.uf ?? null,
     }
 }

@@ -10,6 +10,10 @@ const parser = new Parser({
     },
 });
 
+// Feeds do Google News indexam páginas antigas/institucionais; além do
+// `when:45d` na query, este corte de segurança descarta o que passar.
+const GOOGLE_NEWS_MAX_AGE_DAYS = 45;
+
 function cleanText(text?: string) {
     if (!text) return "Sem descrição disponível.";
 
@@ -19,12 +23,73 @@ function cleanText(text?: string) {
         .trim();
 }
 
+// Nome do estado no título → UF. Bordas de palavra com suporte a acentos
+// evitam falsos positivos (ex.: "Acre" dentro de "acredita").
+const UF_BY_STATE_NAME: [RegExp, string][] = [
+    // Nomes compostos primeiro, para "Mato Grosso do Sul" não virar MT
+    [stateRegex("mato grosso do sul"), "MS"],
+    [stateRegex("mato grosso"), "MT"],
+    [stateRegex("rio grande do sul"), "RS"],
+    [stateRegex("rio grande do norte"), "RN"],
+    [stateRegex("minas gerais"), "MG"],
+    [stateRegex("são paulo"), "SP"],
+    [stateRegex("santa catarina"), "SC"],
+    [stateRegex("espírito santo"), "ES"],
+    [stateRegex("rio de janeiro"), "RJ"],
+    [stateRegex("paraná"), "PR"],
+    [stateRegex("goiás"), "GO"],
+    [stateRegex("bahia"), "BA"],
+    [stateRegex("tocantins"), "TO"],
+    [stateRegex("pará"), "PA"],
+    [stateRegex("rondônia"), "RO"],
+    [stateRegex("roraima"), "RR"],
+    [stateRegex("amazonas"), "AM"],
+    [stateRegex("amapá"), "AP"],
+    [stateRegex("acre"), "AC"],
+    [stateRegex("maranhão"), "MA"],
+    [stateRegex("piauí"), "PI"],
+    [stateRegex("ceará"), "CE"],
+    [stateRegex("paraíba"), "PB"],
+    [stateRegex("pernambuco"), "PE"],
+    [stateRegex("alagoas"), "AL"],
+    [stateRegex("sergipe"), "SE"],
+    [stateRegex("distrito federal"), "DF"],
+];
+
+function stateRegex(name: string) {
+    return new RegExp(`(^|[^\\p{L}])${name}([^\\p{L}]|$)`, "iu");
+}
+
+function detectUf(title: string) {
+    for (const [regex, uf] of UF_BY_STATE_NAME) {
+        if (regex.test(title)) return uf;
+    }
+
+    return null;
+}
+
 function detectCategory(
 title: string,
 description: string
 ) {
 const content =
     `${title} ${description}`.toLowerCase()
+
+if (
+    content.includes("vacinação") ||
+    content.includes("defesa agropecuária") ||
+    content.includes("defesa sanitária") ||
+    content.includes("educação sanitária") ||
+    content.includes("vigilância agropecuária") ||
+    content.includes("guia de trânsito") ||
+    content.includes("atualização de rebanho") ||
+    content.includes("declaração de rebanho") ||
+    content.includes("cadastro agropecuário") ||
+    content.includes("adapar") ||
+    content.includes("fiscalização agropecuária")
+) {
+    return "Sanidade"
+}
 
 if (
     content.includes("boi ") ||
@@ -179,6 +244,8 @@ function calculateImpact(title: string, description: string) {
         "seca",
         "geada",
         "el niño",
+        "prazo",
+        "vacinação",
     ];
 
     highImpactKeywords.forEach((keyword) => {
@@ -192,6 +259,8 @@ function calculateImpact(title: string, description: string) {
 
 export async function getAgroNews() {
     try {
+        const maxAgeMs = GOOGLE_NEWS_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+
         const feeds = await Promise.allSettled(
         sources.map(async (source) => {
         const feed = await parser.parseURL(source.url);
@@ -199,7 +268,19 @@ export async function getAgroNews() {
         // Feeds do Google News repetem a fonte no fim do título ("... - www.gov.br")
         const isGoogleNews = source.url.includes("news.google.com");
 
-            return feed.items.slice(0, 6).map((item) => {
+            return feed.items
+            .filter((item) => {
+                if (!isGoogleNews) return true;
+
+                // Google News mistura páginas antigas; sem data confiável
+                // ou fora da janela de recência, descarta.
+                if (!item.pubDate) return false;
+
+                const age = Date.now() - new Date(item.pubDate).getTime();
+                return Number.isFinite(age) && age >= 0 && age <= maxAgeMs;
+            })
+            .slice(0, 6)
+            .map((item) => {
             let title = cleanText(item.title);
 
             if (isGoogleNews) {
@@ -211,6 +292,7 @@ export async function getAgroNews() {
 
             const description = cleanText(rawDescription);
             const category = detectCategory(title, description) ?? source.category;
+            const uf = source.uf ?? detectUf(title);
 
             const slug = title
                 .toLowerCase()
@@ -231,6 +313,7 @@ export async function getAgroNews() {
                 impact: calculateImpact(title, description),
                 featured: false,
                 logo: source.logo,
+                uf,
             };
         });
         })

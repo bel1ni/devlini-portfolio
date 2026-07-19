@@ -166,6 +166,7 @@ export async function translateNews(news: RawNews[]): Promise<StoredNews[]> {
             featured: item.featured,
             logo: item.logo,
             published_at: item.publishedAt,
+            uf: item.uf,
         }
     })
 }

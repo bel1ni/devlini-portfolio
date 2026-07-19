@@ -5,8 +5,12 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
   images: {
-    // Logos das fontes de notícias da seção /agro
-    remotePatterns: [{ protocol: "https", hostname: "logo.clearbit.com" }],
+    // Favicons das fontes de notícias da seção /agro (clearbit foi desligado;
+    // o padrão dele fica só para linhas antigas do banco via resolveLogo)
+    remotePatterns: [
+      { protocol: "https", hostname: "www.google.com", pathname: "/s2/favicons" },
+      { protocol: "https", hostname: "logo.clearbit.com" },
+    ],
   },
 };
 

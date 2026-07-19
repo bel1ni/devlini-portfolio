@@ -14,6 +14,7 @@ const categories = [
   "Agricultura",
   "Mercado",
   "Clima",
+  "Sanidade",
   "Política Agro",
   "AgTech",
   "Sustentabilidade",
@@ -28,6 +29,7 @@ const ITEMS_PER_PAGE = 20;
 
 export default function NewsFeedClient({ news }: Props) {
   const [selectedCategory, setSelectedCategory] = useState("Todas");
+  const [selectedUf, setSelectedUf] = useState("Todos");
   const [pageByFilter, setPageByFilter] = useState<Record<string, number>>({});
   const [readNews] = useState<string[]>(() => getReadNews());
   const [savedNews, setSavedNews] = useState<string[]>([]);
@@ -36,8 +38,15 @@ export default function NewsFeedClient({ news }: Props) {
   const searchParams = useSearchParams();
   const search = searchParams.get("q") ?? "";
 
-  const pageKey = `${selectedCategory}-${search}`;
+  const pageKey = `${selectedCategory}-${selectedUf}-${search}`;
   const currentPage = pageByFilter[pageKey] || 1;
+
+  // Estados presentes nas notícias carregadas (ex.: PR via ADAPAR/IDR)
+  const availableUfs = useMemo(
+    () =>
+      [...new Set(news.map((item) => item.uf).filter(Boolean))].sort() as string[],
+    [news]
+  );
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -66,6 +75,8 @@ export default function NewsFeedClient({ news }: Props) {
         const matchesCategory =
           selectedCategory === "Todas" || item.category === selectedCategory;
 
+        const matchesUf = selectedUf === "Todos" || item.uf === selectedUf;
+
         const searchContent = `
           ${item.title}
           ${item.description}
@@ -75,7 +86,7 @@ export default function NewsFeedClient({ news }: Props) {
 
         const matchesSearch = searchContent.includes(search.toLowerCase());
 
-        return matchesCategory && matchesSearch;
+        return matchesCategory && matchesUf && matchesSearch;
       })
       .sort((a, b) => {
         const aRead = readNews.includes(String(a.id));
@@ -93,7 +104,7 @@ export default function NewsFeedClient({ news }: Props) {
 
         return b.impact - a.impact;
       });
-  }, [news, selectedCategory, search, readNews, savedNews, mounted]);
+  }, [news, selectedCategory, selectedUf, search, readNews, savedNews, mounted]);
 
   if (!mounted) {
     return <p className="mt-10 text-sm text-zinc-500">Carregando notícias...</p>;
@@ -134,6 +145,26 @@ export default function NewsFeedClient({ news }: Props) {
           </button>
         ))}
       </div>
+
+      {availableUfs.length > 0 && (
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-medium text-zinc-400">Estado:</span>
+
+          {["Todos", ...availableUfs].map((uf) => (
+            <button
+              key={uf}
+              onClick={() => setSelectedUf(uf)}
+              className={`rounded-full border px-3 py-1 text-xs font-medium transition active:scale-[0.97] ${
+                selectedUf === uf
+                  ? "border-emerald-600 bg-emerald-50 text-emerald-700"
+                  : "border-zinc-200 bg-white text-zinc-500 hover:border-zinc-300"
+              }`}
+            >
+              {uf}
+            </button>
+          ))}
+        </div>
+      )}
 
       {!mainNews ? (
         <div className="mt-6 rounded-xl border border-zinc-200 bg-white p-10 text-center">

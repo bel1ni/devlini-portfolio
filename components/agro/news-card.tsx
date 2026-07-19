@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Bookmark, Check } from "lucide-react";
 import { saveBookmark, removeBookmark } from "@/lib/agro/supabase/save-bookmark";
 import { hasReadNews } from "@/lib/agro/read-news";
+import { resolveLogo } from "@/lib/agro/logo";
 
 type NewsCardProps = {
   id: string | number;
@@ -171,7 +172,7 @@ export default function NewsCard({
           >
             <span className="flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full border border-zinc-200 bg-white">
               <Image
-                src={logo}
+                src={resolveLogo(logo)}
                 alt={source}
                 width={24}
                 height={24}

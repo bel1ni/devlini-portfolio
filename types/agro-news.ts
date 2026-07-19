@@ -11,9 +11,12 @@ export type RawNews = {
     featured: boolean
     logo: string
     publishedAt: string
+    // UF da notícia: vem da fonte (ex.: ADAPAR = PR) ou é detectada
+    // pelo nome do estado no título; null = nacional/indefinido.
+    uf: string | null
 }
 
-// Notícia bilíngue como é salva na tabela `news` do Supabase
+// Notícia bilíngue como é salva na tabela `agro_news` do Supabase
 export type StoredNews = {
     id: string
     title_en: string
@@ -28,6 +31,7 @@ export type StoredNews = {
     featured: boolean
     logo: string
     published_at: string
+    uf?: string | null
     ai_summary_en?: string | null
     ai_summary_pt?: string | null
     created_at?: string | null
@@ -51,4 +55,5 @@ export type NewsItem = {
     featured: boolean
     logo: string
     publishedAt: string
+    uf: string | null
 }

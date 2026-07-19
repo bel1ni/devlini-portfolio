@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CloudSun } from "lucide-react";
 import SearchBox from "./search-box";
+import { sources } from "@/lib/agro/sources";
 
 export default function AgroHero() {
   const [time, setTime] = useState("");
@@ -55,7 +56,7 @@ export default function AgroHero() {
     <section className="mt-4 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
       <div className="max-w-2xl">
         <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
-          Pecuária • Agricultura • Mercado • Clima
+          {sources.length} fontes • Pecuária • Agricultura • Mercado • Clima
         </span>
 
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
