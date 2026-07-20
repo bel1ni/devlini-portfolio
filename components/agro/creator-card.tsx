@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { profile, withUtm } from "@/content/site";
+import { profile, socialLinks, withUtm } from "@/content/site";
+import { Icon } from "@/components/icons";
 
 // A área "sobre mim" que vive entre as notícias da seção /agro:
 // apresenta quem faz o portal e cruza tráfego com o hub e o controledegado.app.
@@ -14,11 +15,11 @@ export default function CreatorCard() {
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={profile.avatar}
-            alt={profile.name}
+            src="/devlini-badge.png"
+            alt="DEVLINI"
             width={72}
             height={72}
-            className="size-18 rounded-full border border-zinc-200 bg-white"
+            className="size-18 shrink-0 rounded-2xl border border-zinc-200 bg-white object-contain p-2"
           />
 
           <div className="min-w-0">
@@ -49,6 +50,21 @@ export default function CreatorCard() {
               >
                 controledegado.app →
               </a>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {socialLinks.map((s) => (
+                <a
+                  key={s.id}
+                  href={withUtm(s.url, s.id)}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={s.label}
+                  className="flex size-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition hover:border-zinc-300 hover:text-zinc-900 active:scale-95"
+                >
+                  <Icon name={s.icon} className="size-4" />
+                </a>
+              ))}
             </div>
           </div>
         </div>
