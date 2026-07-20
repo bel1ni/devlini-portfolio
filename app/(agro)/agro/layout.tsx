@@ -77,7 +77,7 @@ export default function AgroLayout({
         <header className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-5 sm:px-6">
           <Link
             href="/agro"
-            className="flex items-center gap-2 text-sm font-bold tracking-widest text-zinc-900"
+            className="flex items-center gap-2 text-base font-extrabold tracking-tight text-zinc-900"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -87,7 +87,9 @@ export default function AgroLayout({
               height={24}
               className="size-6"
             />
-            AGRO<span className="text-emerald-600">LINI</span>
+            <span>
+              AGRO<span className="text-emerald-600">LINI</span>
+            </span>
           </Link>
           <nav className="flex items-center gap-3 sm:gap-4">
             {navLinks.map((link) => (

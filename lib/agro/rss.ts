@@ -257,6 +257,9 @@ function calculateImpact(title: string, description: string) {
     return Math.min(score, 100);
 }
 
+// Itens coletados por fonte conforme a prioridade dela
+const ITEMS_PER_PRIORITY = { 1: 6, 2: 4, 3: 2 } as const;
+
 export async function getAgroNews() {
     try {
         const maxAgeMs = GOOGLE_NEWS_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
@@ -279,7 +282,7 @@ export async function getAgroNews() {
                 const age = Date.now() - new Date(item.pubDate).getTime();
                 return Number.isFinite(age) && age >= 0 && age <= maxAgeMs;
             })
-            .slice(0, 6)
+            .slice(0, ITEMS_PER_PRIORITY[source.priority ?? 1])
             .map((item) => {
             let title = cleanText(item.title);
 
