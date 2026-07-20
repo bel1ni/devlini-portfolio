@@ -21,8 +21,8 @@ const baseUrl = getBaseUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "AGROLINI | Notícias do agronegócio brasileiro",
-    template: "%s | AGROLINI",
+    default: "BELAGRO | Notícias do agronegócio brasileiro",
+    template: "%s | BELAGRO",
   },
   description:
     "Notícias do agronegócio: pecuária, agricultura, mercado, clima e política agrícola do Brasil, resumidas por IA para o produtor rural.",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "milho",
     "plano safra",
     "produtor rural",
-    "AGROLINI",
+    "BELAGRO",
   ],
   authors: [{ name: profile.name }],
   creator: profile.name,
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     canonical: "/agro",
   },
   openGraph: {
-    title: "AGROLINI | Notícias do agronegócio brasileiro",
+    title: "BELAGRO | Notícias do agronegócio brasileiro",
     description:
       "Pecuária, agricultura, mercado e clima resumidos por IA em tempo real.",
     url: "/agro",
@@ -88,7 +88,7 @@ export default function AgroLayout({
               className="size-6"
             />
             <span>
-              AGRO<span className="text-emerald-600">LINI</span>
+              BEL<span className="text-emerald-600">AGRO</span>
             </span>
           </Link>
           <nav className="flex items-center gap-3 sm:gap-4">

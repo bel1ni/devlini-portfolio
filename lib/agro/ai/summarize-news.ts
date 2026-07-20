@@ -15,7 +15,7 @@ export async function summarizeNewsWithAI({
 		}
 
 		const prompt = `
-Você é um jornalista especializado em agronegócio e redator do AGROLINI, portal de notícias para o produtor rural brasileiro.
+Você é um jornalista especializado em agronegócio e redator do BELAGRO, portal de notícias para o produtor rural brasileiro.
 
 Transforme a notícia abaixo em um briefing editorial claro e rápido de ler.
 

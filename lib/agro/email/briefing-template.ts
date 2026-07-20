@@ -51,7 +51,7 @@ export function renderBriefingEmail({
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Briefing AGROLINI</title>
+    <title>Briefing BELAGRO</title>
 </head>
 <body style="margin:0;padding:0;background-color:#f1f5f9;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f1f5f9;padding:24px 12px;">
@@ -61,7 +61,7 @@ export function renderBriefingEmail({
                     <tr>
                         <td style="background-color:#020617;padding:28px 32px;">
                             <p style="margin:0;font-size:22px;font-weight:bold;color:#ffffff;">
-                                AGROLINI
+                                BELAGRO
                             </p>
                             <p style="margin:6px 0 0 0;font-size:13px;color:#6ee7b7;">
                                 Briefing diário &middot; ${escapeHtml(date)}
@@ -86,7 +86,7 @@ export function renderBriefingEmail({
                     <tr>
                         <td style="background-color:#f8fafc;padding:20px 32px;border-top:1px solid #e2e8f0;">
                             <p style="margin:0;font-size:12px;color:#94a3b8;">
-                                Você está recebendo este e-mail porque se inscreveu no briefing do AGROLINI.
+                                Você está recebendo este e-mail porque se inscreveu no briefing do BELAGRO.
                             </p>
                             ${unsubscribeHtml}
                         </td>

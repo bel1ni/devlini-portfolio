@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Sobre",
   description:
-    "O que é o AGROLINI: portal de notícias do agronegócio brasileiro com curadoria automatizada e resumos por IA.",
+    "O que é o BELAGRO: portal de notícias do agronegócio brasileiro com curadoria automatizada e resumos por IA.",
   alternates: {
     canonical: "/agro/sobre",
   },
@@ -18,11 +18,11 @@ export default function SobrePage() {
       </h2>
 
       <h1 className="mt-3 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-        Sobre o AGROLINI
+        Sobre o BELAGRO
       </h1>
 
       <p className="mt-5 text-base leading-7 text-zinc-600">
-        O AGROLINI é a seção de notícias do agronegócio do{" "}
+        O BELAGRO é a seção de notícias do agronegócio do{" "}
         <Link href="/" className="font-medium text-emerald-700 hover:text-emerald-600">
           devlini.com
         </Link>

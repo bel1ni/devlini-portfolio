@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Termos de Uso",
   description:
-    "Termos de uso do devlini.com e da seção de notícias AGROLINI.",
+    "Termos de uso do devlini.com e da seção de notícias BELAGRO.",
   alternates: {
     canonical: "/agro/termos",
   },
@@ -21,7 +21,7 @@ export default function TermosPage() {
       </h1>
 
       <p className="mt-5 text-base leading-7 text-zinc-600">
-        Ao acessar o devlini.com e a seção AGROLINI, você concorda com os
+        Ao acessar o devlini.com e a seção BELAGRO, você concorda com os
         termos descritos nesta página.
       </p>
 
@@ -30,7 +30,7 @@ export default function TermosPage() {
       </h2>
 
       <p className="mt-3 text-base leading-7 text-zinc-600">
-        O AGROLINI fornece conteúdo editorial, resumos de notícias e links
+        O BELAGRO fornece conteúdo editorial, resumos de notícias e links
         para fontes externas com finalidade informativa.
       </p>
 
@@ -40,7 +40,7 @@ export default function TermosPage() {
 
       <p className="mt-3 text-base leading-7 text-zinc-600">
         As notícias exibidas no portal pertencem aos seus respectivos autores e
-        veículos originais. O AGROLINI atua como agregador e direciona
+        veículos originais. O BELAGRO atua como agregador e direciona
         usuários para as fontes oficiais.
       </p>
 

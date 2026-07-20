@@ -93,8 +93,8 @@ export const mainLinks: MainLink[] = [
   {
     id: "devlini-agro",
     label: {
-      pt: "AGROLINI — notícias do agronegócio",
-      en: "AGROLINI — agribusiness news",
+      pt: "BELAGRO — notícias do agronegócio",
+      en: "BELAGRO — agribusiness news",
     },
     url: "/agro",
   },
@@ -133,7 +133,7 @@ export const projects: Project[] = [
   },
   {
     id: "devlini-agro",
-    name: "AGROLINI",
+    name: "BELAGRO",
     description: {
       pt: "Portal de notícias do agronegócio brasileiro: pecuária, agricultura, mercado e clima agregados de fontes como Canal Rural e Embrapa, com resumos por IA e briefing diário por e-mail.",
       en: "Brazilian agribusiness news portal: livestock, farming, market and weather aggregated from sources like Canal Rural and Embrapa, with AI summaries and a daily email briefing.",

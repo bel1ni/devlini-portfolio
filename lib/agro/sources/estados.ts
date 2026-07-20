@@ -87,6 +87,59 @@ export const estados: Source[] = [
         uf: "PA",
         priority: 2,
     },
+
+    // Rio Grande do Sul
+    {
+        name: "Agro RS",
+        url: googleNews("site:agricultura.rs.gov.br when:45d"),
+        category: "Agronegócio",
+        language: "pt-BR",
+        logo: favicon("rs.gov.br"),
+        uf: "RS",
+        priority: 2,
+    },
+
+    // Minas Gerais
+    {
+        name: "IMA-MG",
+        url: googleNews("site:ima.mg.gov.br when:45d"),
+        category: "Sanidade",
+        language: "pt-BR",
+        logo: favicon("ima.mg.gov.br"),
+        uf: "MG",
+        priority: 2,
+    },
+    {
+        name: "Emater-MG",
+        url: googleNews("site:emater.mg.gov.br when:45d"),
+        category: "Agricultura",
+        language: "pt-BR",
+        logo: favicon("emater.mg.gov.br"),
+        uf: "MG",
+        priority: 2,
+    },
+
+    // São Paulo
+    {
+        name: "Defesa Agro SP",
+        url: googleNews("site:defesa.agricultura.sp.gov.br when:45d"),
+        category: "Sanidade",
+        language: "pt-BR",
+        logo: favicon("sp.gov.br"),
+        uf: "SP",
+        priority: 2,
+    },
+
+    // Bahia
+    {
+        name: "ADAB",
+        url: googleNews("site:adab.ba.gov.br when:45d"),
+        category: "Sanidade",
+        language: "pt-BR",
+        logo: favicon("adab.ba.gov.br"),
+        uf: "BA",
+        priority: 3,
+    },
 ]
 
 // NUNCA usar site:idrparana.pr.gov.br: o Google indexa páginas de

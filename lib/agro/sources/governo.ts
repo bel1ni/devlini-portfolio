@@ -31,4 +31,4 @@ export const governo: Source[] = [
 
 // Roadmap: Banco Central (crédito rural), Receita e Diário Oficial exigem
 // filtros específicos por assunto para não inundar o feed — ver
-// DEVLINI/Roadmap AGROLINI no Obsidian (fase de alertas).
+// DEVLINI/Roadmap BELAGRO no Obsidian (fase de alertas).

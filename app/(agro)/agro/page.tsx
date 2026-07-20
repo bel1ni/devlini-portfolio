@@ -16,7 +16,7 @@ export default function AgroHome() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "AGROLINI",
+    name: "BELAGRO",
     url: `${baseUrl}/agro`,
     description:
       "Notícias do agronegócio brasileiro: pecuária, agricultura, mercado, clima e política agrícola resumidas por inteligência artificial.",

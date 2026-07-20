@@ -69,7 +69,7 @@ export default function BookmarksPage() {
 
           <p className="mt-2 text-sm text-zinc-600">
             Faça login com Google para criar sua lista pessoal de leitura no
-            AGROLINI.
+            BELAGRO.
           </p>
 
           <button

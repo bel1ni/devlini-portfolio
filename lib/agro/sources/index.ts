@@ -8,7 +8,7 @@ import { estados } from "./estados"
 
 export type { Source } from "./helpers"
 
-// Todas as coleções de fontes do AGROLINI. Para adicionar uma fonte,
+// Todas as coleções de fontes do BELAGRO. Para adicionar uma fonte,
 // TESTE o feed antes (curl) e coloque na coleção certa — o restante
 // (ingestão, favicon, UF, filtros) funciona sozinho.
 export const sources = [

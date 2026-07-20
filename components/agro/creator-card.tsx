@@ -7,7 +7,7 @@ export default function CreatorCard() {
   return (
     <section className="mt-12">
       <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-        Quem faz o AGROLINI
+        Quem faz o BELAGRO
       </h2>
 
       <div className="mt-3 rounded-xl border border-zinc-200 bg-white p-6">
