@@ -4,6 +4,7 @@ import { clima } from "./clima"
 import { governo } from "./governo"
 import { pecuaria } from "./pecuaria"
 import { cooperativas } from "./cooperativas"
+import { federacoes } from "./federacoes"
 import { estados } from "./estados"
 
 export type { Source } from "./helpers"
@@ -18,5 +19,6 @@ export const sources = [
     ...governo,
     ...pecuaria,
     ...cooperativas,
+    ...federacoes,
     ...estados,
 ]
