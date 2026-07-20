@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: news.title,
 
-    description: smartSummary(news.description, news.title, news.source),
+    description: (smartSummary(news.description, news.title, news.source) || news.description),
 
     alternates: {
       canonical: `/agro/news/${id}`,
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     openGraph: {
       title: news.title,
-      description: smartSummary(news.description, news.title, news.source),
+      description: (smartSummary(news.description, news.title, news.source) || news.description),
       url: `${baseUrl}/agro/news/${id}`,
       siteName: "DEVLINI",
       type: "article",
@@ -109,8 +109,12 @@ export default async function NewsPage({ params }: Props) {
   }
 
   if (!summary) {
-    summary = smartSummary(news.description, news.title, news.source);
+    summary = (smartSummary(news.description, news.title, news.source) || news.description);
   }
+
+  // Itens do Google News só trazem o título (descrição ≈ nome da fonte).
+  // Sem conteúdo real, não fingimos um "resumo" — mandamos pra matéria.
+  const thin = summary.trim().length < 120;
 
   const reading = readingTime(summary);
 
@@ -187,10 +191,27 @@ export default async function NewsPage({ params }: Props) {
 
       <div className="mt-8 rounded-xl border border-zinc-200 bg-white p-6 sm:p-8">
         <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-          Resumo inteligente
+          {thin ? "Manchete" : "Resumo inteligente"}
         </span>
 
-        <p className="mt-3 text-base leading-7 text-zinc-700">{summary}</p>
+        {thin ? (
+          <>
+            <p className="mt-3 text-base leading-7 text-zinc-700">
+              Esta é uma manchete de {news.source}. O conteúdo completo está na
+              matéria original.
+            </p>
+            <a
+              href={news.url}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 active:scale-[0.97]"
+            >
+              Ler matéria completa na fonte →
+            </a>
+          </>
+        ) : (
+          <p className="mt-3 text-base leading-7 text-zinc-700">{summary}</p>
+        )}
       </div>
 
       <NewsChat newsId={news.id} />

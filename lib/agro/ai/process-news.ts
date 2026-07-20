@@ -7,11 +7,13 @@ return title
 }
 
 function generateSummary(description: string) {
-if (description.length <= 120) {
+// ponytail: guarda o resumo real da fonte inteiro; corta só se for
+// absurdamente longo (era 120 chars, o que jogava fora quase tudo).
+if (description.length <= 600) {
     return description
 }
 
-return description.slice(0, 120).trim() + "..."
+return description.slice(0, 600).trim() + "…"
 }
 
 function detectBreaking(news: RawNews) {

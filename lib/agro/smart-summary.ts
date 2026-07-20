@@ -13,21 +13,11 @@ export function smartSummary(
 				.replace(/The post appeared first on.*/gi, "")
 				.trim()
 
-		const cleanSource = source?.trim()
-
-		const invalidTexts = [
-				"read more",
-				"continue reading",
-				"click here",
-				"the post appeared first on",
-		]
-
-		const isInvalid = invalidTexts.some((item) =>
-				cleanText.toLowerCase().includes(item)
-		)
-
-		if (!cleanText || cleanText.length < 40 || isInvalid) {
-				return `A ${cleanSource || "notícia"} destaca uma das movimentações recentes mais relevantes do agronegócio brasileiro, com possíveis impactos para o produtor rural, o mercado e os preços do setor.`
+		// ponytail: nunca inventar resumo. Se sobrou texto real, usa; se não,
+		// devolve "" e a página cai no próprio texto da notícia + "Ler matéria
+		// original" (a informação completa vive na fonte).
+		if (!cleanText) {
+				return ""
 		}
 
 		const sentences = cleanText
