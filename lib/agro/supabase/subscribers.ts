@@ -8,14 +8,12 @@ export type Subscriber = {
 export async function addSubscriber(email: string) {
     const supabase = getSupabaseAdmin()
 
-    const { error } = await supabase
-        .from("agro_subscribers")
-        .upsert(
-            { email },
-            { onConflict: "email", ignoreDuplicates: true }
-        )
+    // insert simples, não upsert: com RLS de INSERT-only para anon, o upsert
+    // exige SELECT e quebra (42501). Duplicado (email é PK) volta 23505 = já
+    // inscrito, tratado como sucesso.
+    const { error } = await supabase.from("agro_subscribers").insert({ email })
 
-    if (error) {
+    if (error && error.code !== "23505") {
         console.error("Erro ao inscrever e-mail:", error.message)
         return false
     }
