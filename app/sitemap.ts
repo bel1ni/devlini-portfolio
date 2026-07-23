@@ -1,13 +1,21 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/content/site";
+import { tools } from "@/content/tools";
 import { getSavedNews } from "@/lib/agro/supabase/get-news";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Ferramentas nos dois idiomas (pt sem prefixo, en com /en).
+  const toolPaths = ["/ferramentas", "/en/ferramentas"];
+  for (const tool of tools) {
+    toolPaths.push(`/ferramentas/${tool.slug}`, `/en/ferramentas/${tool.slug}`);
+  }
+
   const staticPaths = [
     "/",
     "/en",
     "/anuncie",
     "/en/anuncie",
+    ...toolPaths,
     "/agro",
     "/agro/briefing",
     "/agro/sobre",

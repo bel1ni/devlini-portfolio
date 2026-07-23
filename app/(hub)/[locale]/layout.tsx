@@ -87,6 +87,12 @@ export default async function LocaleLayout({
               DEVLINI
             </Link>
             <nav className="flex items-center gap-3">
+              <Link
+                href="/ferramentas"
+                className="text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
+              >
+                {locale === "pt" ? "Ferramentas" : "Tools"}
+              </Link>
               {/* Seção pt-BR fora do next-intl — link normal, não o Link do i18n */}
               <a
                 href="/agro"
