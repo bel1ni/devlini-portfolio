@@ -3,9 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import NewsCard from "./news-card";
+import AlertBanner from "./alert-banner";
 import { timeAgo } from "@/lib/agro/time-ago";
 import { getReadNews } from "@/lib/agro/read-news";
 import { getBookmarkedIds } from "@/lib/agro/supabase/save-bookmark";
+import { getAlertsForUf } from "@/lib/agro/alerts";
 import type { NewsItem } from "@/types/agro-news";
 
 const categories = [
@@ -26,6 +28,7 @@ type Props = {
 };
 
 const ITEMS_PER_PAGE = 20;
+const UF_STORAGE_KEY = "belagro:uf";
 
 export default function NewsFeedClient({ news }: Props) {
   const [selectedCategory, setSelectedCategory] = useState("Todas");
@@ -49,12 +52,31 @@ export default function NewsFeedClient({ news }: Props) {
   );
 
   useEffect(() => {
+    // Restaura a UF escolhida pelo leitor (só vale se ainda houver notícias
+    // dessa UF no feed; senão fica em "Todos").
+    const storedUf = window.localStorage.getItem(UF_STORAGE_KEY);
+    if (storedUf && (storedUf === "Todos" || availableUfs.includes(storedUf))) {
+      setSelectedUf(storedUf);
+    }
+
     const timeout = window.setTimeout(() => {
       setMounted(true);
     }, 0);
 
     return () => window.clearTimeout(timeout);
-  }, []);
+  }, [availableUfs]);
+
+  function handleSelectUf(uf: string) {
+    setSelectedUf(uf);
+    window.localStorage.setItem(UF_STORAGE_KEY, uf);
+  }
+
+  // Alertas acionáveis (clima/sanidade/crédito) para a UF do leitor. Só aparece
+  // quando há uma UF escolhida — no "Todos" seria ruído nacional demais.
+  const ufAlerts = useMemo(
+    () => (selectedUf === "Todos" ? [] : getAlertsForUf(news, selectedUf).slice(0, 4)),
+    [news, selectedUf]
+  );
 
   useEffect(() => {
     if (!mounted) return;
@@ -101,6 +123,14 @@ export default function NewsFeedClient({ news }: Props) {
         if (aShouldGoDown !== bShouldGoDown) {
           return aShouldGoDown ? 1 : -1;
         }
+
+        // Feed de notícia: mais recente primeiro. Impacto só desempata quando
+        // duas matérias saíram quase ao mesmo tempo — assim o topo nunca fica
+        // preso num item antigo e o feed parece sempre atualizado.
+        const byRecency =
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+
+        if (byRecency !== 0) return byRecency;
 
         return b.impact - a.impact;
       });
@@ -153,7 +183,7 @@ export default function NewsFeedClient({ news }: Props) {
           {["Todos", ...availableUfs].map((uf) => (
             <button
               key={uf}
-              onClick={() => setSelectedUf(uf)}
+              onClick={() => handleSelectUf(uf)}
               className={`rounded-full border px-3 py-1 text-xs font-medium transition active:scale-[0.97] ${
                 selectedUf === uf
                   ? "border-emerald-600 bg-emerald-50 text-emerald-700"
@@ -164,6 +194,10 @@ export default function NewsFeedClient({ news }: Props) {
             </button>
           ))}
         </div>
+      )}
+
+      {selectedUf !== "Todos" && (
+        <AlertBanner uf={selectedUf} alerts={ufAlerts} />
       )}
 
       {!mainNews ? (
