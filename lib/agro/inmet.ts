@@ -50,16 +50,25 @@ export type InmetAlert = {
 	window: string
 }
 
-// Formato cru relevante do aviso do INMET (só os campos que usamos).
+// Formato cru do aviso do INMET. Os campos vêm como `unknown` de propósito: a
+// API não é 100% consistente (ex.: `riscos` já veio como array em vez de
+// string), então tudo passa por asText() antes de usar.
 type RawInmetAviso = {
 	id: number
-	descricao?: string
-	severidade?: string
-	estados?: string
-	riscos?: string
-	inicio?: string
-	fim?: string
-	data_inicio?: string
+	descricao?: unknown
+	severidade?: unknown
+	estados?: unknown
+	riscos?: unknown
+	inicio?: unknown
+	fim?: unknown
+}
+
+// Converte qualquer valor da API (string, número, array, null...) em texto,
+// sem estourar. Arrays viram texto separado por espaço.
+function asText(value: unknown): string {
+	if (value == null) return ""
+	if (Array.isArray(value)) return value.map(asText).join(" ").trim()
+	return String(value).trim()
 }
 
 const SEVERITY_BY_NAME: Record<string, InmetSeverity> = {
@@ -74,10 +83,11 @@ export const SEVERITY_ORDER: Record<InmetSeverity, number> = {
 	potencial: 3,
 }
 
-function parseUfs(estados?: string): string[] {
-	if (!estados) return []
+function parseUfs(estados: unknown): string[] {
+	const text = asText(estados)
+	if (!text) return []
 
-	return estados
+	return text
 		.split(",")
 		.map((name) => UF_BY_STATE_NAME[name.trim()])
 		.filter((uf): uf is string => Boolean(uf))
@@ -85,9 +95,9 @@ function parseUfs(estados?: string): string[] {
 
 // "2026-07-23 12:00" (data + hora locais do aviso) → "hoje, 12:00" quando é
 // hoje, senão "23/07, 12:00". Só a hora inicial + a final para não poluir.
-function friendlyWindow(inicio?: string, fim?: string): string {
-	const start = inicio?.split(" ") ?? []
-	const end = fim?.split(" ") ?? []
+function friendlyWindow(inicio: unknown, fim: unknown): string {
+	const start = asText(inicio).split(" ")
+	const end = asText(fim).split(" ")
 
 	const startTime = start[1] ?? ""
 	const endTime = end[1] ?? ""
@@ -106,17 +116,18 @@ function friendlyWindow(inicio?: string, fim?: string): string {
 }
 
 function normalize(aviso: RawInmetAviso): InmetAlert | null {
-	const severity = SEVERITY_BY_NAME[aviso.severidade ?? ""]
+	const severity = SEVERITY_BY_NAME[asText(aviso.severidade)]
 	const ufs = parseUfs(aviso.estados)
+	const event = asText(aviso.descricao)
 
-	if (!severity || ufs.length === 0 || !aviso.descricao) return null
+	if (!severity || ufs.length === 0 || !event) return null
 
 	return {
 		id: aviso.id,
 		ufs,
-		event: aviso.descricao,
+		event,
 		severity,
-		risks: (aviso.riscos ?? "").trim(),
+		risks: asText(aviso.riscos),
 		window: friendlyWindow(aviso.inicio, aviso.fim),
 	}
 }
