@@ -5,46 +5,28 @@ import type { NewsItem } from "@/types/agro-news"
 // mesmo padrão já usado em process-news.ts (categoria/impacto/breaking): puro,
 // sem IA, sem migração de banco, roda no cliente sobre os campos que já existem.
 
-export type AlertKind = "clima" | "sanidade" | "credito"
+// Clima saiu daqui: agora vem dos avisos oficiais do INMET (lib/agro/inmet.ts),
+// geolocalizados e sem o ruído de casar palavra em manchete. Sanidade e crédito
+// seguem derivados das notícias — o INMET não cobre esses temas.
+export type AlertKind = "sanidade" | "credito"
 
 export type AlertInfo = {
 	kind: AlertKind
-	// Rótulo curto para o selo/faixa (ex.: "⚠️ Alerta climático")
+	// Rótulo curto para o selo/faixa (ex.: "📋 Alerta sanitário")
 	label: string
 	emoji: string
-	// Prioridade de exibição: clima severo e prazo sanitário vêm antes de crédito
+	// Prioridade de exibição: prazo sanitário vem antes de crédito
 	priority: number
 	// Classes de cor (tema claro do BELAGRO)
 	badgeCls: string
 }
 
-// Dias a partir de hoje em que um alerta ainda é relevante. Geada de 3 semanas
-// atrás não é alerta — vira ruído. Sanidade/crédito têm prazo mais longo.
+// Dias a partir de hoje em que um alerta ainda é relevante. Sanidade/crédito
+// têm prazo mais longo que uma notícia comum.
 const ALERT_MAX_AGE_DAYS: Record<AlertKind, number> = {
-	clima: 5,
 	sanidade: 21,
 	credito: 30,
 }
-
-const CLIMA_KEYWORDS = [
-	"geada",
-	"temporal",
-	"granizo",
-	"ciclone",
-	"tornado",
-	"vendaval",
-	"seca",
-	"estiagem",
-	"chuva forte",
-	"chuvas intensas",
-	"enchente",
-	"alagamento",
-	"onda de calor",
-	"onda de frio",
-	"frente fria",
-	"alerta laranja",
-	"alerta vermelho",
-]
 
 const SANIDADE_KEYWORDS = [
 	// Vacinação / campanhas sanitárias (nunca "prazo" solto: "curto/longo prazo"
@@ -99,12 +81,6 @@ const CREDITO_KEYWORDS = [
 ]
 
 const KIND_META: Record<AlertKind, Omit<AlertInfo, "kind">> = {
-	clima: {
-		label: "Alerta climático",
-		emoji: "⚠️",
-		priority: 1,
-		badgeCls: "bg-red-50 text-red-700 ring-red-600/20",
-	},
 	sanidade: {
 		label: "Alerta sanitário",
 		emoji: "📋",
@@ -134,18 +110,17 @@ function isRecent(publishedAt: string, kind: AlertKind) {
 }
 
 // Classifica uma notícia como alerta acionável, ou null se for notícia comum.
-// Retorna só o alerta de maior prioridade (clima > sanidade > crédito).
+// Retorna só o alerta de maior prioridade (sanidade > crédito).
 export function detectAlert(item: NewsItem): AlertInfo | null {
 	const content = `${item.title} ${item.description}`.toLowerCase()
 
 	const keywordsByKind: Record<AlertKind, string[]> = {
-		clima: CLIMA_KEYWORDS,
 		sanidade: SANIDADE_KEYWORDS,
 		credito: CREDITO_KEYWORDS,
 	}
 
-	// Ordem = prioridade: clima severo antes de sanidade antes de crédito.
-	const kinds: AlertKind[] = ["clima", "sanidade", "credito"]
+	// Ordem = prioridade: prazo sanitário antes de crédito.
+	const kinds: AlertKind[] = ["sanidade", "credito"]
 
 	for (const kind of kinds) {
 		if (matches(content, keywordsByKind[kind]) && isRecent(item.publishedAt, kind)) {

@@ -8,6 +8,7 @@ import { timeAgo } from "@/lib/agro/time-ago";
 import { getReadNews } from "@/lib/agro/read-news";
 import { getBookmarkedIds } from "@/lib/agro/supabase/save-bookmark";
 import { getAlertsForUf } from "@/lib/agro/alerts";
+import { inmetAlertsForUf, type InmetAlert } from "@/lib/agro/inmet";
 import type { NewsItem } from "@/types/agro-news";
 
 const categories = [
@@ -25,12 +26,13 @@ const categories = [
 
 type Props = {
   news: NewsItem[];
+  inmetAlerts: InmetAlert[];
 };
 
 const ITEMS_PER_PAGE = 20;
 const UF_STORAGE_KEY = "belagro:uf";
 
-export default function NewsFeedClient({ news }: Props) {
+export default function NewsFeedClient({ news, inmetAlerts }: Props) {
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [selectedUf, setSelectedUf] = useState("Todos");
   const [pageByFilter, setPageByFilter] = useState<Record<string, number>>({});
@@ -71,9 +73,15 @@ export default function NewsFeedClient({ news }: Props) {
     window.localStorage.setItem(UF_STORAGE_KEY, uf);
   }
 
-  // Alertas acionáveis (clima/sanidade/crédito) para a UF do leitor. Só aparece
-  // quando há uma UF escolhida — no "Todos" seria ruído nacional demais.
-  const ufAlerts = useMemo(
+  // Alertas para a UF do leitor: avisos oficiais do INMET (clima) + sanidade e
+  // crédito derivados das notícias. Só aparece quando há uma UF escolhida — no
+  // "Todos" seria ruído nacional demais.
+  const ufInmetAlerts = useMemo(
+    () => (selectedUf === "Todos" ? [] : inmetAlertsForUf(inmetAlerts, selectedUf)),
+    [inmetAlerts, selectedUf]
+  );
+
+  const ufNewsAlerts = useMemo(
     () => (selectedUf === "Todos" ? [] : getAlertsForUf(news, selectedUf).slice(0, 4)),
     [news, selectedUf]
   );
@@ -197,7 +205,11 @@ export default function NewsFeedClient({ news }: Props) {
       )}
 
       {selectedUf !== "Todos" && (
-        <AlertBanner uf={selectedUf} alerts={ufAlerts} />
+        <AlertBanner
+          uf={selectedUf}
+          inmetAlerts={ufInmetAlerts}
+          newsAlerts={ufNewsAlerts}
+        />
       )}
 
       {!mainNews ? (
