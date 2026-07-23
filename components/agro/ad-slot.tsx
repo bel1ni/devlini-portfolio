@@ -30,6 +30,11 @@ export default function AdSlot({ slot, className }: AdSlotProps) {
 
 		return (
 				<div className={className}>
+						{/* Rótulo de boa prática do AdSense: num feed de notícias, o
+						   anúncio precisa ser distinguível do conteúdo. */}
+						<p className="mb-1 text-center text-[10px] uppercase tracking-widest text-zinc-300">
+								Publicidade
+						</p>
 						<ins
 								className="adsbygoogle"
 								style={{ display: "block" }}

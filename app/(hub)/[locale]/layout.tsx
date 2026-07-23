@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -14,6 +15,12 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
+
+// Loader do AdSense também no hub (devlini.com): a verificação do AdSense
+// rastreia a home do domínio, não o /agro. Só o script — sem unidades de
+// anúncio aqui, então nada é exibido no portfólio (a menos que os Auto Ads
+// sejam ligados no painel).
+const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -117,6 +124,15 @@ export default async function LocaleLayout({
           </footer>
         </NextIntlClientProvider>
         <Analytics />
+
+        {adsenseClient && (
+          <Script
+            id="adsense"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );
