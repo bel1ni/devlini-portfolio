@@ -19,6 +19,7 @@ import { AdCard } from "@/components/ad-card";
 import { Section } from "@/components/section";
 import { TrackLink } from "@/components/track-link";
 import { Icon } from "@/components/icons";
+import { Link } from "@/i18n/navigation";
 
 // ISR: anúncios do painel self-serve entram/expiram sem redeploy
 export const revalidate = 300;
@@ -121,6 +122,15 @@ export default async function HomePage({
                 {tHero("contact")}
               </a>
             </div>
+            {l === "pt" && (
+              <Link
+                href="/sobre"
+                className="group mt-4 inline-flex items-center gap-1.5 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-zinc-700 active:scale-[0.97]"
+              >
+                Sobre mim
+                <span className="transition group-hover:translate-x-0.5">→</span>
+              </Link>
+            )}
           </div>
         </section>
 
