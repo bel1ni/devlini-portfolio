@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -126,11 +125,14 @@ export default async function LocaleLayout({
         <Analytics />
 
         {adsenseClient && (
-          <Script
-            id="adsense"
+          // Script nativo (não next/script): o React 19 eleva <script async>
+          // para o <head>, que é onde o rastreador do AdSense procura o snippet
+          // de verificação. next/script o deixava no fim do <body>.
+          // eslint-disable-next-line @next/next/no-sync-scripts
+          <script
+            async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
             crossOrigin="anonymous"
-            strategy="afterInteractive"
           />
         )}
       </body>
