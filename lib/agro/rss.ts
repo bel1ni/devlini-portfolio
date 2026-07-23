@@ -10,9 +10,11 @@ const parser = new Parser({
     },
 });
 
-// Feeds do Google News indexam páginas antigas/institucionais; além do
-// `when:45d` na query, este corte de segurança descarta o que passar.
-const GOOGLE_NEWS_MAX_AGE_DAYS = 45;
+// Idade máxima de qualquer notícia ingerida. Feeds do Google News indexam
+// páginas antigas/institucionais, mas RSS nativos (ex.: Giro Paraná) também
+// trazem itens de semanas atrás — este corte vale para TODOS os feeds datados
+// para o banco não acumular notícia velha.
+const MAX_AGE_DAYS = 14;
 
 function cleanText(text?: string) {
     if (!text) return "Sem descrição disponível.";
@@ -262,7 +264,7 @@ const ITEMS_PER_PRIORITY = { 1: 6, 2: 4, 3: 2 } as const;
 
 export async function getAgroNews() {
     try {
-        const maxAgeMs = GOOGLE_NEWS_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+        const maxAgeMs = MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
 
         const feeds = await Promise.allSettled(
         sources.map(async (source) => {
@@ -273,12 +275,13 @@ export async function getAgroNews() {
 
             return feed.items
             .filter((item) => {
-                if (!isGoogleNews) return true;
+                // Sem data: Google News mistura páginas institucionais antigas,
+                // então descarta; RSS nativo sem data é raro e fica (recebe
+                // "agora" como publishedAt abaixo).
+                if (!item.pubDate) return !isGoogleNews;
 
-                // Google News mistura páginas antigas; sem data confiável
-                // ou fora da janela de recência, descarta.
-                if (!item.pubDate) return false;
-
+                // Com data: corta o que está fora da janela de recência,
+                // para qualquer fonte.
                 const age = Date.now() - new Date(item.pubDate).getTime();
                 return Number.isFinite(age) && age >= 0 && age <= maxAgeMs;
             })

@@ -5,6 +5,11 @@ import { getSubscribers } from "@/lib/agro/supabase/subscribers"
 import { generateBriefing } from "@/lib/agro/ai/generate-briefing"
 import { renderBriefingEmail } from "@/lib/agro/email/briefing-template"
 import { sendEmails } from "@/lib/agro/email/send-email"
+import { ensureFreshNews } from "@/lib/agro/ingest"
+
+// Pode coletar notícias antes de montar o briefing; mesmo motivo da rota de
+// ingestão (evita o timeout de 10s do Hobby).
+export const maxDuration = 60
 
 const MAX_NEWS = 8
 
@@ -23,6 +28,10 @@ export async function GET(request: Request) {
     }
 
     try {
+        // Garante que o dia foi coletado antes de enviar — se a cron das 6h
+        // falhou, coleta agora para o briefing nunca sair vazio ou defasado.
+        await ensureFreshNews()
+
         const news = await getTopNews(MAX_NEWS)
 
         if (news.length === 0) {

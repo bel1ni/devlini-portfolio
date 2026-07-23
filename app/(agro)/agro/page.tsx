@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import AgroHero from "@/components/agro/agro-hero";
 import NewsFeed from "@/components/agro/news-feed";
 import Trending from "@/components/agro/trending";
@@ -5,13 +6,28 @@ import CreatorCard from "@/components/agro/creator-card";
 import NewsletterForm from "@/components/agro/newsletter-form";
 import AdSlot from "@/components/agro/ad-slot";
 import { getBaseUrl } from "@/lib/agro/site-url";
+import { ensureFreshNews } from "@/lib/agro/ingest";
 
 // Revalida a cada 5 min para que notícias novas apareçam sem depender
 // de um novo deploy (sem isso a página fica estática no build).
 export const revalidate = 300;
 
+// Precisa aguentar a coleta disparada no after() abaixo (mesmo motivo das rotas).
+export const maxDuration = 60;
+
 export default function AgroHome() {
   const baseUrl = getBaseUrl();
+
+  // Primeiro acesso do dia dispara a coleta em segundo plano, depois da
+  // resposta — o usuário não espera nada. Se já coletou hoje, é só uma
+  // contagem. Rede de segurança caso a cron das 6h falhe.
+  after(async () => {
+    try {
+      await ensureFreshNews();
+    } catch (error) {
+      console.warn("ensureFreshNews falhou:", error);
+    }
+  });
 
   const jsonLd = {
     "@context": "https://schema.org",

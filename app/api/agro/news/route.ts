@@ -1,10 +1,11 @@
-import { saveNews } from "@/lib/agro/supabase/save-news";
-import { processNews } from "@/lib/agro/ai/process-news";
-import { translateNews } from "@/lib/agro/ai/translate-news";
 import { NextResponse } from "next/server"
-import { getAgroNews } from "@/lib/agro/rss"
+import { runIngestion } from "@/lib/agro/ingest"
 
-export const revalidate=300;
+// A coleta busca ~39 feeds RSS e pode levar dezenas de segundos; sem isto a
+// função morre no timeout padrão de 10s do plano Hobby e nada é salvo (foi o
+// que deixou o feed parado). 60s é o teto do Hobby.
+export const maxDuration = 60
+export const revalidate = 300
 
 export async function GET(request: Request) {
     const cronSecret = process.env.CRON_SECRET
@@ -21,23 +22,16 @@ export async function GET(request: Request) {
     }
 
     try {
-        const news = await getAgroNews()
-        const processedNews = processNews(news)
-        const translatedNews = await translateNews(processedNews)
-        console.log('Notícias processadas: ', translatedNews.length)
-        await saveNews(translatedNews)
+        const count = await runIngestion()
+        console.log("Notícias processadas: ", count)
 
-        return NextResponse.json(translatedNews)
+        return NextResponse.json({ ok: true, count })
     } catch (error) {
         console.error("Erro na API de notícias:", error)
 
         return NextResponse.json(
-        {
-            error: "Erro ao buscar notícias",
-        },
-        {
-            status: 500,
-        }
+            { error: "Erro ao buscar notícias" },
+            { status: 500 }
         )
     }
 }
