@@ -1,20 +1,26 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/content/site";
 import { getProjectSlugs } from "@/lib/projetos/get-projects";
+import { getPostSlugs } from "@/lib/blog/get-posts";
 import { getSavedNews } from "@/lib/agro/supabase/get-news";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const projectSlugs = await getProjectSlugs();
+  const [projectSlugs, postSlugs] = await Promise.all([
+    getProjectSlugs(),
+    getPostSlugs(),
+  ]);
   const projectPaths = [
     "/projetos",
     ...projectSlugs.map((slug) => `/projetos/${slug}`),
   ];
+  const blogPaths = ["/blog", ...postSlugs.map((slug) => `/blog/${slug}`)];
 
   const staticPaths = [
     "/",
     "/en",
     "/sobre",
     ...projectPaths,
+    ...blogPaths,
     "/anuncie",
     "/en/anuncie",
     "/agro",
