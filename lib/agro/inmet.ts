@@ -177,7 +177,18 @@ export async function getInmetAlerts(): Promise<InmetAlert[]> {
 	}
 }
 
-// Avisos que valem para uma UF, já ordenados por severidade.
+// Avisos que valem para uma UF, já ordenados por severidade. Deduplica por
+// conteúdo: o INMET emite avisos separados por região (polígonos diferentes)
+// que, reduzidos a nível de estado, viram linhas idênticas — mostra só uma.
 export function inmetAlertsForUf(alerts: InmetAlert[], uf: string): InmetAlert[] {
-	return alerts.filter((alert) => alert.ufs.includes(uf))
+	const seen = new Set<string>()
+
+	return alerts
+		.filter((alert) => alert.ufs.includes(uf))
+		.filter((alert) => {
+			const key = `${alert.event}|${alert.severity}|${alert.window}|${alert.risks}`
+			if (seen.has(key)) return false
+			seen.add(key)
+			return true
+		})
 }
