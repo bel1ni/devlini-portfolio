@@ -7,6 +7,7 @@ import { profile, socialLinks, withUtm, SITE_URL } from "@/content/site";
 import { getAboutData, entriesBySection } from "@/lib/sobre/get-about";
 import { Icon } from "@/components/icons";
 import { TrackLink } from "@/components/track-link";
+import { EditFab } from "@/components/edit-fab";
 
 // ISR: edições feitas no painel /sobre/editar aparecem em até ~30s, sem deploy.
 export const revalidate = 30;
@@ -44,6 +45,7 @@ export default async function SobrePage({
 
   return (
     <div className="mx-auto max-w-3xl py-8">
+      <EditFab href="/sobre/editar" />
       {/* Hero */}
       <section className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}

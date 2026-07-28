@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { profile, SITE_URL } from "@/content/site";
 import { getPost, getPosts, getPostSlugs } from "@/lib/blog/get-posts";
+import { EditFab } from "@/components/edit-fab";
 
 export const revalidate = 30;
 
@@ -70,6 +71,7 @@ export default async function PostPage({
 
   return (
     <article className="mx-auto max-w-2xl py-8">
+      <EditFab href="/blog/editar" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}

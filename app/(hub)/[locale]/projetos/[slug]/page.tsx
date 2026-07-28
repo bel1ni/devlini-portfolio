@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { profile, SITE_URL } from "@/content/site";
 import { getProject, getProjects, getProjectSlugs } from "@/lib/projetos/get-projects";
+import { EditFab } from "@/components/edit-fab";
 
 export const revalidate = 30;
 
@@ -80,6 +81,7 @@ export default async function ProjetoPage({
 
   return (
     <article className="mx-auto max-w-3xl py-8">
+      <EditFab href="/projetos/editar" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
