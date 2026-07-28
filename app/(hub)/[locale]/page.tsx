@@ -250,6 +250,13 @@ export default async function HomePage({
               );
             })}
           </div>
+          <Link
+            href="/projetos"
+            className="group mt-4 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 transition hover:text-emerald-600"
+          >
+            {l === "pt" ? "Ver todos os projetos" : "See all projects"}
+            <span className="transition group-hover:translate-x-0.5">→</span>
+          </Link>
         </Section>
 
         {/* Anúncio inline (mobile) */}
