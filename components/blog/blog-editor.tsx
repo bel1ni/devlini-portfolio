@@ -28,6 +28,7 @@ export default function BlogEditor() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [msg, setMsg] = useState("");
   const [uploadingId, setUploadingId] = useState<string | null>(null);
+  const [confirmId, setConfirmId] = useState<string | null>(null);
 
   const flash = useCallback((text: string) => {
     setMsg(text);
@@ -69,8 +70,8 @@ export default function BlogEditor() {
   }
 
   async function onDelete(id: string) {
-    if (!confirm("Excluir este post?")) return;
     const { error } = await deletePost(id);
+    setConfirmId(null);
     if (error) return flash(`Erro: ${error}`);
     await refresh();
     flash("Post removido.");
@@ -244,13 +245,22 @@ export default function BlogEditor() {
               >
                 Ver página
               </a>
-              <button
-                onClick={() => onDelete(p.id)}
-                aria-label="Excluir"
-                className="ml-auto rounded-lg border border-red-200 bg-red-50 p-1.5 text-red-600 hover:bg-red-100"
-              >
-                <Trash2 size={14} />
-              </button>
+              {confirmId === p.id ? (
+                <button
+                  onClick={() => onDelete(p.id)}
+                  className="ml-auto rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700"
+                >
+                  Confirmar exclusão
+                </button>
+              ) : (
+                <button
+                  onClick={() => setConfirmId(p.id)}
+                  aria-label="Excluir"
+                  className="ml-auto rounded-lg border border-red-200 bg-red-50 p-1.5 text-red-600 hover:bg-red-100"
+                >
+                  <Trash2 size={14} />
+                </button>
+              )}
             </div>
           </div>
         ))}

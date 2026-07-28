@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/next";
 import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
-import { LocaleSwitcher } from "@/components/locale-switcher";
+import { HubNav } from "@/components/hub-nav";
 import { profile, SITE_URL } from "@/content/site";
 import "../../globals.css";
 
@@ -86,40 +86,15 @@ export default async function LocaleLayout({
               />
               DEVLINI
             </Link>
-            <nav className="flex items-center gap-3">
-              <Link
-                href="/sobre"
-                className="text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
-              >
-                {locale === "pt" ? "Sobre" : "About"}
-              </Link>
-              <Link
-                href="/projetos"
-                className="text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
-              >
-                {locale === "pt" ? "Projetos" : "Projects"}
-              </Link>
-              <Link
-                href="/blog"
-                className="text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
-              >
-                Blog
-              </Link>
-              {/* Seção pt-BR fora do next-intl — link normal, não o Link do i18n */}
-              <a
-                href="/agro"
-                className="text-sm font-medium text-emerald-700 transition hover:text-emerald-600"
-              >
-                Agro
-              </a>
-              <Link
-                href="/anuncie"
-                className="text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
-              >
-                {t("advertise")}
-              </Link>
-              <LocaleSwitcher />
-            </nav>
+            <HubNav
+              items={[
+                { href: "/sobre", label: locale === "pt" ? "Sobre" : "About" },
+                { href: "/projetos", label: locale === "pt" ? "Projetos" : "Projects" },
+                { href: "/blog", label: "Blog" },
+                { href: "/agro", label: "Agro", external: true, accent: true },
+                { href: "/anuncie", label: t("advertise") },
+              ]}
+            />
           </header>
 
           <main className="mx-auto w-full max-w-5xl px-4 pb-16 sm:px-6">
