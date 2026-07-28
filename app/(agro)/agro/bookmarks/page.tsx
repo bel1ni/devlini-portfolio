@@ -73,7 +73,7 @@ export default function BookmarksPage() {
           </p>
 
           <button
-            onClick={signInWithGoogle}
+            onClick={() => signInWithGoogle()}
             className="mt-5 rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 active:scale-[0.97]"
           >
             Entrar com Google

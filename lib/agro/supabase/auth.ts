@@ -1,10 +1,10 @@
 import { supabase } from "./client"
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(redirectPath = "/agro/bookmarks") {
 		const redirectUrl =
 				typeof window !== "undefined"
-						? `${window.location.origin}/agro/bookmarks`
-						: "https://devlini.com/agro/bookmarks"
+						? `${window.location.origin}${redirectPath}`
+						: `https://devlini.com${redirectPath}`
 
 		const { data, error } = await supabase.auth.signInWithOAuth({
 				provider: "google",
