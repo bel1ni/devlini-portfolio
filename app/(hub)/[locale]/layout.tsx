@@ -93,6 +93,12 @@ export default async function LocaleLayout({
               >
                 {locale === "pt" ? "Sobre" : "About"}
               </Link>
+              <Link
+                href="/projetos"
+                className="text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
+              >
+                {locale === "pt" ? "Projetos" : "Projects"}
+              </Link>
               {/* Seção pt-BR fora do next-intl — link normal, não o Link do i18n */}
               <a
                 href="/agro"
