@@ -1,5 +1,6 @@
 import { supabase } from "./client";
 import { localizeNews } from "@/lib/agro/i18n/localize-news";
+import { isJunkTitle } from "@/lib/agro/junk-title";
 import type { NewsItem, StoredNews } from "@/types/agro-news";
 
 // Janela do feed: só notícias dos últimos dias. Sem isso, um item antigo de
@@ -27,5 +28,7 @@ export async function getSavedNews(): Promise<NewsItem[]> {
         return []
     }
 
-    return (data as StoredNews[]).map((row) => localizeNews(row, "pt"))
+    return (data as StoredNews[])
+        .map((row) => localizeNews(row, "pt"))
+        .filter((item) => !isJunkTitle(item.title, item.source))
 }

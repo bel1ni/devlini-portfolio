@@ -1,5 +1,6 @@
 import { supabase } from "./client"
 import { localizeNews } from "@/lib/agro/i18n/localize-news"
+import { isJunkTitle } from "@/lib/agro/junk-title"
 import type { NewsItem, StoredNews } from "@/types/agro-news"
 
 async function topNewsSince(hours: number, limit: number) {
@@ -25,5 +26,7 @@ export async function getTopNews(limit = 8): Promise<NewsItem[]> {
         data = await topNewsSince(48, limit)
     }
 
-    return ((data ?? []) as StoredNews[]).map((row) => localizeNews(row, "pt"))
+    return ((data ?? []) as StoredNews[])
+        .map((row) => localizeNews(row, "pt"))
+        .filter((item) => !isJunkTitle(item.title, item.source))
 }

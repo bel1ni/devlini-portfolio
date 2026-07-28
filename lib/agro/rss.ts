@@ -1,4 +1,5 @@
 import { sources } from "./sources"
+import { isJunkTitle } from "./junk-title";
 import Parser from "rss-parser";
 
 // Alguns portais (ex.: Portal DBO) devolvem 403 para o user-agent
@@ -328,6 +329,7 @@ export async function getAgroNews() {
     return feeds
         .filter((result)=> result.status==="fulfilled")
         .flatMap((result)=>result.value)
+        .filter((news)=> !isJunkTitle(news.title, news.source))
         .sort((a,b)=> b.impact - a.impact);
     } catch (error) {
     console.error("Erro ao buscar notícias:", error);
