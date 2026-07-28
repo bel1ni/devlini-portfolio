@@ -20,6 +20,7 @@ import { Section } from "@/components/section";
 import { TrackLink } from "@/components/track-link";
 import { Icon } from "@/components/icons";
 import { Link } from "@/i18n/navigation";
+import { getAboutData } from "@/lib/sobre/get-about";
 
 // ISR: anúncios do painel self-serve entram/expiram sem redeploy
 export const revalidate = 300;
@@ -44,6 +45,9 @@ export default async function HomePage({
   const tStatus = await getTranslations("status");
   const tHero = await getTranslations("hero");
   const tCreations = await getTranslations("ads");
+
+  // Dados do "Sobre" (mesma fonte editável da página /sobre; com fallback).
+  const { profile: about } = await getAboutData();
 
   // Slots: anúncio do painel (banco) tem prioridade; senão, config estática
   const dbAds = await getActiveAds();
@@ -122,17 +126,44 @@ export default async function HomePage({
                 {tHero("contact")}
               </a>
             </div>
-            {l === "pt" && (
-              <Link
-                href="/sobre"
-                className="group mt-4 inline-flex items-center gap-1.5 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-zinc-700 active:scale-[0.97]"
-              >
-                Sobre mim
-                <span className="transition group-hover:translate-x-0.5">→</span>
-              </Link>
-            )}
           </div>
         </section>
+
+        {/* Disponível para vagas (pt) — sinaliza na home que ela está no mercado */}
+        {l === "pt" && about.availability_open && (
+          <div className="rise-in mt-5 rounded-2xl border border-emerald-600/20 bg-emerald-50 p-4">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span className="relative flex size-2.5">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex size-2.5 rounded-full bg-emerald-600" />
+              </span>
+              <span className="text-sm font-bold text-emerald-900">
+                {about.availability_headline}
+              </span>
+              {about.roles.length > 0 && (
+                <span className="text-xs text-emerald-800/70">
+                  · {about.roles.join(" · ")}
+                </span>
+              )}
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Link
+                href="/sobre"
+                className="rounded-lg bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-emerald-700 active:scale-[0.97]"
+              >
+                Ver meu perfil
+              </Link>
+              <a
+                href="/curriculo-mariane-belini.pdf"
+                target="_blank"
+                rel="noopener"
+                className="rounded-lg border border-emerald-600/30 bg-white px-4 py-1.5 text-xs font-semibold text-emerald-800 transition hover:border-emerald-600/50 active:scale-[0.97]"
+              >
+                Currículo (PDF)
+              </a>
+            </div>
+          </div>
+        )}
 
         {/* Redes sociais */}
         <div className="rise-in mt-5 flex flex-wrap gap-2">
