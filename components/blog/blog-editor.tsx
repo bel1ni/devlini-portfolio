@@ -134,7 +134,10 @@ export default function BlogEditor() {
     <div className="mx-auto max-w-2xl py-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900">Editar blog</h1>
+          <a href="/painel" className="text-xs font-medium text-zinc-400 hover:text-zinc-600">
+            ← Painel
+          </a>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">Editar blog</h1>
           <p className="mt-1 text-xs text-zinc-400">Logada como {email}</p>
         </div>
         <button
