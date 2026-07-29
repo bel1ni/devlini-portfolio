@@ -7,7 +7,7 @@ import { Icon } from "@/components/icons";
 export default function CreatorCard() {
   return (
     <section className="mt-12">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
         Quem faz o BELAGRO
       </h2>
 
@@ -29,7 +29,7 @@ export default function CreatorCard() {
             <p className="mt-0.5 text-sm font-medium text-emerald-700">
               {profile.headline.pt}
             </p>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-500">
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-600">
               {profile.bio.pt} Este portal de notícias é um dos meus projetos —
               conheça os outros no meu site.
             </p>
@@ -60,7 +60,7 @@ export default function CreatorCard() {
                   target="_blank"
                   rel="noopener"
                   aria-label={s.label}
-                  className="flex size-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition hover:border-zinc-300 hover:text-zinc-900 active:scale-95"
+                  className="flex size-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-600 transition hover:border-zinc-300 hover:text-zinc-900 active:scale-95"
                 >
                   <Icon name={s.icon} className="size-4" />
                 </a>

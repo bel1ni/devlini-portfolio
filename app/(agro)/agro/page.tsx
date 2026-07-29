@@ -68,7 +68,7 @@ export default function AgroHome() {
       <Trending />
 
       <section id="newsletter" className="mt-12 scroll-mt-24">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
           Receba por e-mail
         </h2>
         <div className="mt-3 max-w-md">

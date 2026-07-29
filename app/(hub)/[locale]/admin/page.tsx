@@ -27,7 +27,7 @@ export default async function AdminPage({
 
   if (!secret || key !== secret) {
     return (
-      <div className="mx-auto mt-16 max-w-md text-center text-sm text-zinc-500">
+      <div className="mx-auto mt-16 max-w-md text-center text-sm text-zinc-600">
         Acesso restrito. Use /admin?key=SEU_ADMIN_SECRET.
       </div>
     );
@@ -52,8 +52,8 @@ export default async function AdminPage({
           <p className="text-sm font-semibold text-zinc-900">
             {ad.title ?? "(sem arte ainda)"}
           </p>
-          <p className="truncate text-xs text-zinc-500">{ad.description}</p>
-          <p className="mt-1 truncate text-xs text-zinc-400">
+          <p className="truncate text-xs text-zinc-600">{ad.description}</p>
+          <p className="mt-1 truncate text-xs text-zinc-500">
             {ad.email} · plano {ad.plan} · {ad.url}
             {ad.status === "ativo" && ad.ends_at && (
               <> · slot {ad.slot} · expira {new Date(ad.ends_at).toLocaleDateString("pt-BR")}</>
@@ -95,31 +95,31 @@ export default async function AdminPage({
         </p>
       )}
 
-      <h2 className="mt-8 text-xs font-semibold uppercase tracking-widest text-zinc-400">
+      <h2 className="mt-8 text-xs font-semibold uppercase tracking-widest text-zinc-500">
         Aguardando aprovação ({pending.length})
       </h2>
       <div className="mt-3 flex flex-col gap-3">
         {pending.length === 0 && (
-          <p className="text-sm text-zinc-400">Nada na fila. 🎉</p>
+          <p className="text-sm text-zinc-500">Nada na fila. 🎉</p>
         )}
         {pending.map((ad) => (
           <AdRow key={ad.id} ad={ad} actions />
         ))}
       </div>
 
-      <h2 className="mt-10 text-xs font-semibold uppercase tracking-widest text-zinc-400">
+      <h2 className="mt-10 text-xs font-semibold uppercase tracking-widest text-zinc-500">
         No ar ({active.length}/3)
       </h2>
       <div className="mt-3 flex flex-col gap-3">
         {active.length === 0 && (
-          <p className="text-sm text-zinc-400">Nenhum anúncio ativo.</p>
+          <p className="text-sm text-zinc-500">Nenhum anúncio ativo.</p>
         )}
         {active.map((ad) => (
           <AdRow key={ad.id} ad={ad} actions={false} />
         ))}
       </div>
 
-      <p className="mt-10 text-xs leading-relaxed text-zinc-400">
+      <p className="mt-10 text-xs leading-relaxed text-zinc-500">
         Rejeitou um anúncio? Faça o reembolso manualmente no dashboard do
         Stripe (Pagamentos → Reembolsar). A expiração é automática: o card sai
         do ar quando ends_at passa.

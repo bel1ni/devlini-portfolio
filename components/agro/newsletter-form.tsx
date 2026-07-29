@@ -49,7 +49,7 @@ export default function NewsletterForm() {
         Briefing diário por e-mail
       </h4>
 
-      <p className="mt-1.5 text-xs leading-relaxed text-zinc-500">
+      <p className="mt-1.5 text-xs leading-relaxed text-zinc-600">
         As notícias mais importantes do agro, resumidas por IA, direto na sua
         caixa de entrada.
       </p>
@@ -62,7 +62,7 @@ export default function NewsletterForm() {
           onChange={(event) => setEmail(event.target.value)}
           placeholder="seu@email.com"
           aria-label="Seu e-mail"
-          className="w-full rounded-lg border border-zinc-200 bg-white px-3.5 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-600 focus:outline-none"
+          className="w-full rounded-lg border border-zinc-200 bg-white px-3.5 py-2 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-emerald-600 focus:outline-none"
         />
 
         <button

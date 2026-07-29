@@ -27,7 +27,7 @@ export default async function BriefingPage() {
 
   return (
     <div className="mx-auto max-w-3xl py-8">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
         Briefing diário
       </h2>
 
@@ -35,14 +35,14 @@ export default async function BriefingPage() {
         As notícias mais importantes de hoje
       </h1>
 
-      <p className="mt-1 text-sm capitalize text-zinc-400">{today}</p>
+      <p className="mt-1 text-sm capitalize text-zinc-500">{today}</p>
 
       {news.length === 0 ? (
         <div className="mt-8 rounded-xl border border-zinc-200 bg-white p-10 text-center">
           <p className="text-sm font-semibold text-zinc-900">
             Ainda não há notícias para o briefing de hoje.
           </p>
-          <p className="mt-1 text-xs text-zinc-500">
+          <p className="mt-1 text-xs text-zinc-600">
             Assim que novas matérias forem coletadas, elas aparecem aqui.
           </p>
           <Link
@@ -73,7 +73,7 @@ export default async function BriefingPage() {
                   <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
                     {item.category}
                   </span>
-                  <span className="text-zinc-400">
+                  <span className="text-zinc-500">
                     {item.source} · {timeAgo(item.publishedAt, "pt")}
                   </span>
                 </div>
@@ -99,7 +99,7 @@ export default async function BriefingPage() {
           </div>
 
           <div className="mt-10 rounded-xl border border-zinc-200 bg-white p-5 text-center">
-            <p className="text-xs text-zinc-500">
+            <p className="text-xs text-zinc-600">
               Quer receber esse briefing todos os dias por e-mail?{" "}
               <Link
                 href="/agro#newsletter"

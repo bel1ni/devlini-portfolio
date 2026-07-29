@@ -16,7 +16,7 @@ export default async function NewsFeed() {
     <section id="noticias" className="scroll-mt-24">
       <Suspense
         fallback={
-          <p className="mt-10 text-sm text-zinc-500">Carregando notícias...</p>
+          <p className="mt-10 text-sm text-zinc-600">Carregando notícias...</p>
         }
       >
         <NewsFeedClient news={news} inmetAlerts={inmetAlerts} />

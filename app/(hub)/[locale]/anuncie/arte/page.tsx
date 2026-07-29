@@ -33,7 +33,7 @@ export default async function ArtPage({
         <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
           {t("invalidTitle")}
         </h1>
-        <p className="mt-3 text-sm text-zinc-500">{t("invalidBody")}</p>
+        <p className="mt-3 text-sm text-zinc-600">{t("invalidBody")}</p>
       </div>
     );
   }
@@ -43,7 +43,7 @@ export default async function ArtPage({
       <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
         {t("title")}
       </h1>
-      <p className="mt-2 text-sm leading-relaxed text-zinc-500">{t("body")}</p>
+      <p className="mt-2 text-sm leading-relaxed text-zinc-600">{t("body")}</p>
       <div className="mt-8">
         <ArtForm token={ad.token} />
       </div>

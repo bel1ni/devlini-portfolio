@@ -47,13 +47,13 @@ export default function PanelHome() {
   }, []);
 
   if (status === "loading")
-    return <p className="py-16 text-center text-sm text-zinc-500">Carregando…</p>;
+    return <p className="py-16 text-center text-sm text-zinc-600">Carregando…</p>;
 
   if (status === "anon")
     return (
       <div className="mx-auto max-w-md py-16 text-center">
         <h1 className="text-xl font-bold text-zinc-900">Painel do seu site</h1>
-        <p className="mt-2 text-sm text-zinc-500">
+        <p className="mt-2 text-sm text-zinc-600">
           Entre com sua conta Google para gerenciar seu conteúdo.
         </p>
         <button
@@ -69,7 +69,7 @@ export default function PanelHome() {
     return (
       <div className="mx-auto max-w-md py-16 text-center">
         <h1 className="text-xl font-bold text-zinc-900">Acesso restrito</h1>
-        <p className="mt-2 text-sm text-zinc-500">
+        <p className="mt-2 text-sm text-zinc-600">
           A conta {email} não pode editar este site.
         </p>
         <button
@@ -91,7 +91,7 @@ export default function PanelHome() {
           <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
             Painel do seu site
           </h1>
-          <p className="mt-1 text-xs text-zinc-400">Logada como {email}</p>
+          <p className="mt-1 text-xs text-zinc-500">Logada como {email}</p>
         </div>
         <button
           onClick={async () => {
@@ -115,13 +115,13 @@ export default function PanelHome() {
             <h2 className="mt-3 text-base font-semibold text-zinc-900 transition group-hover:text-emerald-700">
               {card.title}
             </h2>
-            <p className="mt-1 text-sm leading-5 text-zinc-500">{card.desc}</p>
+            <p className="mt-1 text-sm leading-5 text-zinc-600">{card.desc}</p>
           </a>
         ))}
       </div>
 
-      <p className="mt-8 text-center text-xs text-zinc-400">
-        Dica: salve <span className="font-medium text-zinc-500">devlini.com/painel</span>{" "}
+      <p className="mt-8 text-center text-xs text-zinc-500">
+        Dica: salve <span className="font-medium text-zinc-600">devlini.com/painel</span>{" "}
         nos favoritos para editar seu site quando quiser.
       </p>
     </div>

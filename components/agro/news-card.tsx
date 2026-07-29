@@ -14,7 +14,7 @@ function impactLabel(impact: number) {
   if (impact >= 85) return { text: "Urgente", cls: "text-red-600" };
   if (impact >= 65) return { text: "Alta", cls: "text-amber-600" };
   if (impact >= 55) return { text: "Média", cls: "text-emerald-700" };
-  return { text: "Baixa", cls: "text-zinc-400" };
+  return { text: "Baixa", cls: "text-zinc-500" };
 }
 
 type NewsCardProps = {
@@ -118,7 +118,7 @@ export default function NewsCard({
         className={`absolute right-4 top-4 z-20 rounded-full border p-2 transition active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 ${
           saved
             ? "border-emerald-600/40 bg-emerald-50 text-emerald-700"
-            : "border-zinc-200 bg-white text-zinc-400 hover:border-zinc-300 hover:text-emerald-700"
+            : "border-zinc-200 bg-white text-zinc-500 hover:border-zinc-300 hover:text-emerald-700"
         }`}
         aria-label={saved ? "Remover dos salvos" : "Salvar notícia"}
       >
@@ -142,13 +142,13 @@ export default function NewsCard({
           )}
 
           {read && (
-            <span className="flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-500">
+            <span className="flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600">
               <Check size={12} />
               Lida
             </span>
           )}
 
-          <span className="ml-auto text-xs text-zinc-400">{time}</span>
+          <span className="ml-auto text-xs text-zinc-500">{time}</span>
         </div>
 
         <h3
@@ -160,7 +160,7 @@ export default function NewsCard({
         </h3>
 
         <p
-          className={`mt-2 text-zinc-500 ${
+          className={`mt-2 text-zinc-600 ${
             large
               ? "line-clamp-4 text-sm leading-6"
               : "line-clamp-3 text-xs leading-5"
@@ -177,7 +177,7 @@ export default function NewsCard({
             onClick={(event) => {
               event.stopPropagation();
             }}
-            className="flex min-w-0 items-center gap-2 text-zinc-400 transition hover:text-zinc-700"
+            className="flex min-w-0 items-center gap-2 text-zinc-500 transition hover:text-zinc-700"
           >
             <span className="flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full border border-zinc-200 bg-white">
               <Image
@@ -192,7 +192,7 @@ export default function NewsCard({
             <span className="truncate">{source}</span>
           </a>
 
-          <span className="shrink-0 text-zinc-400">
+          <span className="shrink-0 text-zinc-500">
             <span className={`font-semibold ${impactLabel(impact).cls}`}>
               {impactLabel(impact).text}
             </span>{" "}

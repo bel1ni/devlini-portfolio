@@ -36,7 +36,7 @@ export default async function AdvertisePage({
         <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
           {t("title")}
         </h1>
-        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-500">
+        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-600">
           {t("subtitle")}
         </p>
         <p className="mx-auto mt-4 max-w-xl rounded-lg border border-amber-200 bg-amber-50 px-4 py-2.5 text-xs leading-relaxed text-amber-800">
@@ -63,12 +63,12 @@ export default async function AdvertisePage({
                 {t("mostPopular")}
               </span>
             )}
-            <p className="text-sm font-semibold text-zinc-500">
+            <p className="text-sm font-semibold text-zinc-600">
               {plan.duration[l]}
             </p>
             <p className="mt-2 text-3xl font-bold tracking-tight text-zinc-900">
               R$ {plan.price}
-              <span className="ml-1 text-xs font-normal text-zinc-400">
+              <span className="ml-1 text-xs font-normal text-zinc-500">
                 {t("perSlot")}
               </span>
             </p>
@@ -103,7 +103,7 @@ export default async function AdvertisePage({
                 {t("cta")}
               </TrackLink>
             )}
-            <p className="mt-2 text-center text-[10px] text-zinc-400">
+            <p className="mt-2 text-center text-[10px] text-zinc-500">
               {t("ctaNote")}
             </p>
           </div>
@@ -123,7 +123,7 @@ export default async function AdvertisePage({
           ] as const
         ).map(([titleKey, listKey]) => (
           <div key={listKey}>
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
               {t(titleKey)}
             </h2>
             <ul className="mt-3 flex flex-col gap-2 text-xs leading-relaxed text-zinc-600">

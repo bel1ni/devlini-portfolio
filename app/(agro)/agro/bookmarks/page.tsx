@@ -47,7 +47,7 @@ export default function BookmarksPage() {
 
   if (isLoggedIn === null) {
     return (
-      <p className="mt-10 text-sm text-zinc-500">Carregando salvos...</p>
+      <p className="mt-10 text-sm text-zinc-600">Carregando salvos...</p>
     );
   }
 
@@ -57,7 +57,7 @@ export default function BookmarksPage() {
         Notícias salvas
       </h1>
 
-      <p className="mt-1 text-sm text-zinc-500">
+      <p className="mt-1 text-sm text-zinc-600">
         Suas notícias favoritas para ler depois.
       </p>
 
@@ -80,7 +80,7 @@ export default function BookmarksPage() {
           </button>
         </div>
       ) : bookmarks.length === 0 ? (
-        <div className="mt-8 rounded-xl border border-zinc-200 bg-white p-8 text-sm text-zinc-500">
+        <div className="mt-8 rounded-xl border border-zinc-200 bg-white p-8 text-sm text-zinc-600">
           Você ainda não salvou nenhuma notícia.
         </div>
       ) : (
@@ -96,7 +96,7 @@ export default function BookmarksPage() {
                   {bookmark.category || "Agro"}
                 </span>
 
-                <span className="text-xs text-zinc-400">
+                <span className="text-xs text-zinc-500">
                   {bookmark.source || "Fonte"}
                 </span>
               </div>
@@ -105,12 +105,12 @@ export default function BookmarksPage() {
                 {bookmark.title}
               </h2>
 
-              <p className="mt-2 line-clamp-3 text-sm leading-6 text-zinc-500">
+              <p className="mt-2 line-clamp-3 text-sm leading-6 text-zinc-600">
                 {bookmark.description || "Sem descrição disponível."}
               </p>
 
               <div className="mt-4 flex items-center justify-between">
-                <span className="text-xs text-zinc-400">
+                <span className="text-xs text-zinc-500">
                   Clique para abrir a notícia
                 </span>
 

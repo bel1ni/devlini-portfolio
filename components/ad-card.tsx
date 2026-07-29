@@ -31,7 +31,7 @@ export async function AdCard({
           <p className="text-sm font-semibold text-zinc-700 group-hover:text-emerald-700">
             {t("emptyTitle")}
           </p>
-          <p className="mt-1 text-xs text-zinc-500">{t("emptyDescription")}</p>
+          <p className="mt-1 text-xs text-zinc-600">{t("emptyDescription")}</p>
         </div>
         <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-emerald-600">
           {t("emptyCta")}
@@ -63,11 +63,11 @@ export async function AdCard({
       )}
       <div className="flex items-start justify-between gap-2">
         <p className="text-sm font-semibold text-zinc-900">{ad.title}</p>
-        <span className="shrink-0 rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-500">
+        <span className="shrink-0 rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-600">
           {t("sponsored")}
         </span>
       </div>
-      <p className="mt-1 text-xs leading-relaxed text-zinc-500">
+      <p className="mt-1 text-xs leading-relaxed text-zinc-600">
         {pick(ad.description, locale)}
       </p>
     </TrackLink>

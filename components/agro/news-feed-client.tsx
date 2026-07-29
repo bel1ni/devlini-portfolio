@@ -145,7 +145,7 @@ export default function NewsFeedClient({ news, inmetAlerts }: Props) {
   }, [news, selectedCategory, selectedUf, search, readNews, savedNews, mounted]);
 
   if (!mounted) {
-    return <p className="mt-10 text-sm text-zinc-500">Carregando notícias...</p>;
+    return <p className="mt-10 text-sm text-zinc-600">Carregando notícias...</p>;
   }
 
   const visibleNews = filteredNews.slice(0, currentPage * ITEMS_PER_PAGE);
@@ -159,7 +159,7 @@ export default function NewsFeedClient({ news, inmetAlerts }: Props) {
   return (
     <div className="mt-10">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
           Últimas notícias
         </h2>
 
@@ -186,7 +186,7 @@ export default function NewsFeedClient({ news, inmetAlerts }: Props) {
 
       {availableUfs.length > 0 && (
         <div className="mt-2 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-medium text-zinc-400">Estado:</span>
+          <span className="text-xs font-medium text-zinc-500">Estado:</span>
 
           {["Todos", ...availableUfs].map((uf) => (
             <button
@@ -195,7 +195,7 @@ export default function NewsFeedClient({ news, inmetAlerts }: Props) {
               className={`rounded-full border px-3 py-1 text-xs font-medium transition active:scale-[0.97] ${
                 selectedUf === uf
                   ? "border-emerald-600 bg-emerald-50 text-emerald-700"
-                  : "border-zinc-200 bg-white text-zinc-500 hover:border-zinc-300"
+                  : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300"
               }`}
             >
               {uf}
@@ -218,7 +218,7 @@ export default function NewsFeedClient({ news, inmetAlerts }: Props) {
             Nenhuma notícia encontrada nessa categoria.
           </p>
 
-          <p className="mt-1 text-xs text-zinc-500">
+          <p className="mt-1 text-xs text-zinc-600">
             Tente selecionar outra categoria.
           </p>
         </div>

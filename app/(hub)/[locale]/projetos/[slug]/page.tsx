@@ -89,7 +89,7 @@ export default async function ProjetoPage({
         }}
       />
 
-      <nav className="text-xs text-zinc-400">
+      <nav className="text-xs text-zinc-500">
         <Link href="/" className="hover:text-zinc-600">
           Início
         </Link>{" "}
@@ -163,7 +163,7 @@ export default async function ProjetoPage({
       <div className="mt-8 space-y-8">
         {sections.map((s) => (
           <section key={s.label}>
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
               {s.label}
             </h2>
             <p className="mt-2 whitespace-pre-line text-sm leading-7 text-zinc-600">
@@ -175,7 +175,7 @@ export default async function ProjetoPage({
 
       {others.length > 0 && (
         <section className="mt-12 border-t border-zinc-200 pt-8">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
             Outros projetos
           </h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -189,7 +189,7 @@ export default async function ProjetoPage({
                   {p.name}
                 </span>
                 {p.summary && (
-                  <span className="mt-1 block line-clamp-2 text-xs text-zinc-500">
+                  <span className="mt-1 block line-clamp-2 text-xs text-zinc-600">
                     {p.summary}
                   </span>
                 )}

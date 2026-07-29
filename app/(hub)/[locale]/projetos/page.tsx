@@ -18,7 +18,7 @@ const statusLabel: Record<string, string> = {
 const statusStyle: Record<string, string> = {
   live: "bg-emerald-50 text-emerald-700 ring-emerald-600/20",
   building: "bg-amber-50 text-amber-700 ring-amber-600/20",
-  paused: "bg-zinc-100 text-zinc-500 ring-zinc-500/20",
+  paused: "bg-zinc-100 text-zinc-600 ring-zinc-500/20",
 };
 
 export function generateStaticParams() {
@@ -70,7 +70,7 @@ export default async function ProjetosPage({
         }}
       />
 
-      <nav className="text-xs text-zinc-400">
+      <nav className="text-xs text-zinc-500">
         <Link href="/" className="hover:text-zinc-600">
           Início
         </Link>{" "}
@@ -80,13 +80,13 @@ export default async function ProjetosPage({
       <h1 className="mt-3 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
         Projetos
       </h1>
-      <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+      <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
         Cada projeto que construí, por dentro: o problema, a solução, o que eu
         fiz e o resultado.
       </p>
 
       {projects.length === 0 ? (
-        <p className="mt-8 rounded-xl border border-dashed border-zinc-200 p-10 text-center text-sm text-zinc-400">
+        <p className="mt-8 rounded-xl border border-dashed border-zinc-200 p-10 text-center text-sm text-zinc-500">
           Em breve.
         </p>
       ) : (
@@ -117,14 +117,14 @@ export default async function ProjetosPage({
                   </span>
                 </div>
                 {p.summary && (
-                  <p className="mt-2 text-sm leading-6 text-zinc-500">{p.summary}</p>
+                  <p className="mt-2 text-sm leading-6 text-zinc-600">{p.summary}</p>
                 )}
                 {p.tech.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1">
                     {p.tech.map((t) => (
                       <span
                         key={t}
-                        className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] font-medium text-zinc-500"
+                        className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] font-medium text-zinc-600"
                       >
                         {t}
                       </span>

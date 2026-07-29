@@ -20,7 +20,7 @@ export function LocaleSwitcher() {
           className={
             l === locale
               ? "rounded-full bg-zinc-900 px-2.5 py-1 text-white transition active:scale-95"
-              : "rounded-full px-2.5 py-1 text-zinc-500 transition hover:text-zinc-900 active:scale-95"
+              : "rounded-full px-2.5 py-1 text-zinc-600 transition hover:text-zinc-900 active:scale-95"
           }
         >
           {l.toUpperCase()}

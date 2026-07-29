@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function TermosPage() {
   return (
     <div className="mx-auto max-w-3xl py-8">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
         Termos
       </h2>
 
@@ -62,7 +62,7 @@ export default function TermosPage() {
         plataforma, funcionalidades ou requisitos legais.
       </p>
 
-      <p className="mt-8 text-sm text-zinc-400">Última atualização: 2026.</p>
+      <p className="mt-8 text-sm text-zinc-500">Última atualização: 2026.</p>
     </div>
   );
 }

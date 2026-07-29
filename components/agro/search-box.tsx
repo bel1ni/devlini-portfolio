@@ -24,14 +24,14 @@ export default function SearchBox() {
       }}
       className="flex w-full max-w-md items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2.5 transition focus-within:border-emerald-600"
     >
-      <Search className="size-4 shrink-0 text-zinc-400" />
+      <Search className="size-4 shrink-0 text-zinc-500" />
 
       <input
         type="text"
         placeholder="Buscar notícias do agro"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full min-w-0 bg-transparent text-sm text-zinc-900 outline-none placeholder:text-zinc-400"
+        className="w-full min-w-0 bg-transparent text-sm text-zinc-900 outline-none placeholder:text-zinc-500"
       />
     </form>
   );

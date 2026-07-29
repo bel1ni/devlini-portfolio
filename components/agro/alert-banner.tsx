@@ -76,7 +76,7 @@ export default function AlertBanner({ uf, inmetAlerts, newsAlerts }: Props) {
                       {alert.risks}
                     </span>
                   )}
-                  <span className="mt-0.5 block text-xs text-zinc-500">
+                  <span className="mt-0.5 block text-xs text-zinc-600">
                     INMET · {alert.window}
                   </span>
                 </span>
@@ -102,7 +102,7 @@ export default function AlertBanner({ uf, inmetAlerts, newsAlerts }: Props) {
                 <span className="line-clamp-2 text-sm font-medium text-zinc-800">
                   {item.title}
                 </span>
-                <span className="mt-0.5 block truncate text-xs text-zinc-500">
+                <span className="mt-0.5 block truncate text-xs text-zinc-600">
                   {item.source}
                 </span>
               </span>

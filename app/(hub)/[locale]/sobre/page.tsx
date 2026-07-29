@@ -119,7 +119,7 @@ export default async function SobrePage({
       {/* Minha história */}
       {story.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
             Minha história
           </h2>
           <div className="mt-4 space-y-4">
@@ -135,7 +135,7 @@ export default async function SobrePage({
       {/* No que sou boa */}
       {skills.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
             No que sou boa
           </h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -155,7 +155,7 @@ export default async function SobrePage({
                   </div>
                 )}
                 {skill.body && (
-                  <p className="mt-3 text-xs leading-5 text-zinc-500">{skill.body}</p>
+                  <p className="mt-3 text-xs leading-5 text-zinc-600">{skill.body}</p>
                 )}
               </div>
             ))}
@@ -166,7 +166,7 @@ export default async function SobrePage({
       {/* Destaques */}
       {highlights.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
             O que já construí
           </h2>
           <div className="mt-4 grid gap-3">
@@ -191,7 +191,7 @@ export default async function SobrePage({
                     )}
                   </div>
                   {project.body && (
-                    <p className="mt-2 text-sm leading-6 text-zinc-500">{project.body}</p>
+                    <p className="mt-2 text-sm leading-6 text-zinc-600">{project.body}</p>
                   )}
                 </a>
               );
@@ -203,7 +203,7 @@ export default async function SobrePage({
       {/* Aprendendo agora */}
       {learning.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
             O que estou aprendendo agora
           </h2>
           <div className="mt-4 space-y-3">
@@ -214,7 +214,7 @@ export default async function SobrePage({
               >
                 <p className="text-sm font-semibold text-zinc-900">{item.title}</p>
                 {item.body && (
-                  <p className="mt-1 text-sm leading-6 text-zinc-500">{item.body}</p>
+                  <p className="mt-1 text-sm leading-6 text-zinc-600">{item.body}</p>
                 )}
               </div>
             ))}
@@ -224,7 +224,7 @@ export default async function SobrePage({
 
       {/* Contato / redes */}
       <section className="mt-12 border-t border-zinc-200 pt-8 text-center">
-        <p className="text-sm text-zinc-500">Vamos conversar? Me encontre por aqui:</p>
+        <p className="text-sm text-zinc-600">Vamos conversar? Me encontre por aqui:</p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           {socialLinks.map((s) => (
             <TrackLink
@@ -233,7 +233,7 @@ export default async function SobrePage({
               eventData={{ id: s.id, from: "sobre" }}
               href={withUtm(s.url, s.id)}
               aria-label={s.label}
-              className="flex size-10 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition hover:border-zinc-300 hover:text-zinc-900 active:scale-95"
+              className="flex size-10 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-600 transition hover:border-zinc-300 hover:text-zinc-900 active:scale-95"
             >
               <Icon name={s.icon} className="size-4" />
             </TrackLink>

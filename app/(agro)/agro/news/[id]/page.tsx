@@ -74,7 +74,7 @@ export default async function NewsPage({ params }: Props) {
             Notícia não encontrada
           </h1>
 
-          <p className="mt-3 text-sm text-zinc-500">
+          <p className="mt-3 text-sm text-zinc-600">
             Essa notícia pode ter sido removida.
           </p>
 
@@ -156,7 +156,7 @@ export default async function NewsPage({ params }: Props) {
           {news.category}
         </span>
 
-        <span className="text-xs text-zinc-400">
+        <span className="text-xs text-zinc-500">
           {timeAgo(news.publishedAt, "pt")}
         </span>
       </div>
@@ -176,7 +176,7 @@ export default async function NewsPage({ params }: Props) {
         />
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-zinc-500">
+      <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-zinc-600">
         <span>
           Fonte: <span className="font-medium text-zinc-800">{news.source}</span>
         </span>
@@ -190,7 +190,7 @@ export default async function NewsPage({ params }: Props) {
       </div>
 
       <div className="mt-8 rounded-xl border border-zinc-200 bg-white p-6 sm:p-8">
-        <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+        <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
           {thin ? "Manchete" : "Resumo inteligente"}
         </span>
 
@@ -241,7 +241,7 @@ export default async function NewsPage({ params }: Props) {
 
       {relatedNews.length > 0 && (
         <div className="mt-14">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
             Notícias relacionadas
           </h2>
 
@@ -260,11 +260,11 @@ export default async function NewsPage({ params }: Props) {
                   {item.title}
                 </h3>
 
-                <p className="mt-2 line-clamp-3 text-xs leading-5 text-zinc-500">
+                <p className="mt-2 line-clamp-3 text-xs leading-5 text-zinc-600">
                   {item.description}
                 </p>
 
-                <div className="mt-4 flex items-center justify-between text-xs text-zinc-400">
+                <div className="mt-4 flex items-center justify-between text-xs text-zinc-500">
                   <span>{item.source}</span>
                   <span>{timeAgo(item.publishedAt, "pt")}</span>
                 </div>

@@ -77,7 +77,7 @@ export default async function PostPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      <nav className="text-xs text-zinc-400">
+      <nav className="text-xs text-zinc-500">
         <Link href="/" className="hover:text-zinc-600">
           Início
         </Link>{" "}
@@ -88,7 +88,7 @@ export default async function PostPage({
         / <span className="text-zinc-600">{post.title}</span>
       </nav>
 
-      <p className="mt-4 text-xs text-zinc-400">{fmt(post.published_at)}</p>
+      <p className="mt-4 text-xs text-zinc-500">{fmt(post.published_at)}</p>
       <h1 className="mt-1 text-2xl font-bold leading-tight tracking-tight text-zinc-900 sm:text-3xl">
         {post.title}
       </h1>
@@ -110,7 +110,7 @@ export default async function PostPage({
 
       {others.length > 0 && (
         <section className="mt-12 border-t border-zinc-200 pt-8">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
             Outros posts
           </h2>
           <div className="mt-4 grid gap-3">
@@ -120,7 +120,7 @@ export default async function PostPage({
                 href={`/blog/${p.slug}`}
                 className="group rounded-xl border border-zinc-200 bg-white p-4 transition hover:border-zinc-300 hover:shadow-sm"
               >
-                <span className="text-xs text-zinc-400">{fmt(p.published_at)}</span>
+                <span className="text-xs text-zinc-500">{fmt(p.published_at)}</span>
                 <span className="mt-0.5 block text-sm font-semibold text-zinc-900 transition group-hover:text-emerald-700">
                   {p.title}
                 </span>

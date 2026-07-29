@@ -21,7 +21,7 @@ type Editable = Project & { techText: string };
 
 const input =
   "w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 outline-none focus:border-emerald-500";
-const label = "block text-xs font-medium text-zinc-500";
+const label = "block text-xs font-medium text-zinc-600";
 
 export default function ProjectsEditor() {
   const [status, setStatus] = useState<
@@ -115,13 +115,13 @@ export default function ProjectsEditor() {
   }
 
   if (status === "loading")
-    return <p className="py-16 text-center text-sm text-zinc-500">Carregando…</p>;
+    return <p className="py-16 text-center text-sm text-zinc-600">Carregando…</p>;
 
   if (status === "anon")
     return (
       <div className="mx-auto max-w-md py-16 text-center">
         <h1 className="text-xl font-bold text-zinc-900">Editar projetos</h1>
-        <p className="mt-2 text-sm text-zinc-500">
+        <p className="mt-2 text-sm text-zinc-600">
           Entre com sua conta Google para editar os projetos.
         </p>
         <button
@@ -137,7 +137,7 @@ export default function ProjectsEditor() {
     return (
       <div className="mx-auto max-w-md py-16 text-center">
         <h1 className="text-xl font-bold text-zinc-900">Acesso restrito</h1>
-        <p className="mt-2 text-sm text-zinc-500">
+        <p className="mt-2 text-sm text-zinc-600">
           A conta {email} não pode editar este site.
         </p>
         <button
@@ -158,13 +158,13 @@ export default function ProjectsEditor() {
     <div className="mx-auto max-w-2xl py-8">
       <div className="flex items-center justify-between">
         <div>
-          <a href="/painel" className="text-xs font-medium text-zinc-400 hover:text-zinc-600">
+          <a href="/painel" className="text-xs font-medium text-zinc-500 hover:text-zinc-600">
             ← Painel
           </a>
           <h1 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
             Editar projetos
           </h1>
-          <p className="mt-1 text-xs text-zinc-400">Logada como {email}</p>
+          <p className="mt-1 text-xs text-zinc-500">Logada como {email}</p>
         </div>
         <button
           onClick={onAdd}
@@ -198,7 +198,7 @@ export default function ProjectsEditor() {
                   onClick={() => onMove(p, -1)}
                   disabled={idx === 0}
                   aria-label="Subir"
-                  className="rounded-lg border border-zinc-200 p-1.5 text-zinc-500 hover:border-zinc-300 disabled:opacity-30"
+                  className="rounded-lg border border-zinc-200 p-1.5 text-zinc-600 hover:border-zinc-300 disabled:opacity-30"
                 >
                   <ArrowUp size={14} />
                 </button>
@@ -206,7 +206,7 @@ export default function ProjectsEditor() {
                   onClick={() => onMove(p, 1)}
                   disabled={idx === sorted.length - 1}
                   aria-label="Descer"
-                  className="rounded-lg border border-zinc-200 p-1.5 text-zinc-500 hover:border-zinc-300 disabled:opacity-30"
+                  className="rounded-lg border border-zinc-200 p-1.5 text-zinc-600 hover:border-zinc-300 disabled:opacity-30"
                 >
                   <ArrowDown size={14} />
                 </button>
@@ -253,7 +253,7 @@ export default function ProjectsEditor() {
                 {p.cover_url && (
                   <button
                     onClick={() => setField(p.id, "cover_url", null)}
-                    className="rounded-lg border border-zinc-200 px-3 py-1.5 text-xs text-zinc-500 hover:border-zinc-300"
+                    className="rounded-lg border border-zinc-200 px-3 py-1.5 text-xs text-zinc-600 hover:border-zinc-300"
                   >
                     Remover
                   </button>
@@ -343,13 +343,13 @@ export default function ProjectsEditor() {
         ))}
 
         {sorted.length === 0 && (
-          <p className="rounded-xl border border-dashed border-zinc-200 p-8 text-center text-sm text-zinc-400">
+          <p className="rounded-xl border border-dashed border-zinc-200 p-8 text-center text-sm text-zinc-500">
             Nenhum projeto ainda. Clique em &quot;Novo projeto&quot;.
           </p>
         )}
       </div>
 
-      <p className="mt-10 text-center text-xs text-zinc-400">
+      <p className="mt-10 text-center text-xs text-zinc-500">
         As mudanças aparecem nas páginas públicas em até ~30 segundos.
       </p>
     </div>

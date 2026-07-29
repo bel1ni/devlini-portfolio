@@ -28,7 +28,7 @@ export const revalidate = 300;
 const statusStyle: Record<string, string> = {
   live: "bg-emerald-50 text-emerald-700 ring-emerald-600/20",
   building: "bg-amber-50 text-amber-700 ring-amber-600/20",
-  paused: "bg-zinc-100 text-zinc-500 ring-zinc-500/20",
+  paused: "bg-zinc-100 text-zinc-600 ring-zinc-500/20",
 };
 
 export default async function HomePage({
@@ -121,17 +121,17 @@ export default async function HomePage({
             <p className="mt-1 font-medium text-emerald-700">
               {profile.headline[l]}
             </p>
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-500">
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-600">
               {profile.bio[l]}
             </p>
-            <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-zinc-400">
+            <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-zinc-500">
               <span>{profile.location[l]}</span>
               <span aria-hidden>·</span>
               <a
                 href={`mailto:${profile.email}`}
                 target="_blank"
                 rel="noopener"
-                className="font-medium text-zinc-500 hover:text-emerald-600"
+                className="font-medium text-zinc-600 hover:text-emerald-600"
               >
                 {tHero("contact")}
               </a>
@@ -184,7 +184,7 @@ export default async function HomePage({
               eventData={{ id: s.id }}
               href={withUtm(s.url, s.id)}
               aria-label={s.label}
-              className="flex size-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition hover:border-zinc-300 hover:text-zinc-900 active:scale-95"
+              className="flex size-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-600 transition hover:border-zinc-300 hover:text-zinc-900 active:scale-95"
             >
               <Icon name={s.icon} className="size-4" />
             </TrackLink>
@@ -223,14 +223,14 @@ export default async function HomePage({
                       {tStatus(p.status)}
                     </span>
                   </div>
-                  <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                  <p className="mt-2 text-xs leading-relaxed text-zinc-600">
                     {p.description[l]}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-1">
                     {p.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] font-medium text-zinc-500"
+                        className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] font-medium text-zinc-600"
                       >
                         {tech}
                       </span>
@@ -321,11 +321,11 @@ export default async function HomePage({
                 <p className="text-base font-semibold text-zinc-900">
                   {prod.name}
                 </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">
+                <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">
                   {prod.tagline[l]}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-                  <span className="text-xs text-zinc-400">
+                  <span className="text-xs text-zinc-500">
                     {prod.priceNote[l]}
                   </span>
                   <TrackLink

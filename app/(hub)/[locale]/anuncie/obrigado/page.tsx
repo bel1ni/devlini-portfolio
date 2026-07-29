@@ -55,7 +55,7 @@ export default async function ThanksPage({
       <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
         {paid ? t("paidTitle") : t("genericTitle")}
       </h1>
-      <p className="mt-3 text-sm leading-relaxed text-zinc-500">
+      <p className="mt-3 text-sm leading-relaxed text-zinc-600">
         {paid ? t("paidBody") : t("genericBody")}
       </p>
       {artUrl && (
@@ -67,7 +67,7 @@ export default async function ThanksPage({
         </a>
       )}
       {artUrl && (
-        <p className="mt-3 break-all text-xs text-zinc-400">{artUrl}</p>
+        <p className="mt-3 break-all text-xs text-zinc-500">{artUrl}</p>
       )}
     </div>
   );

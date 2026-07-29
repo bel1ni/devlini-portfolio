@@ -81,7 +81,7 @@ export function ArtForm({ token }: { token: string }) {
           required
           className="text-sm text-zinc-600 file:mr-3 file:rounded-lg file:border-0 file:bg-zinc-100 file:px-3 file:py-2 file:text-sm file:font-medium file:text-zinc-700"
         />
-        <span className="text-xs font-normal text-zinc-400">
+        <span className="text-xs font-normal text-zinc-500">
           {t("imageHint")}
         </span>
       </label>

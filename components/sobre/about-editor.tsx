@@ -145,14 +145,14 @@ export default function AboutEditor() {
   }
 
   if (status === "loading") {
-    return <p className="py-16 text-center text-sm text-zinc-500">Carregando…</p>;
+    return <p className="py-16 text-center text-sm text-zinc-600">Carregando…</p>;
   }
 
   if (status === "anon") {
     return (
       <div className="mx-auto max-w-md py-16 text-center">
         <h1 className="text-xl font-bold text-zinc-900">Painel do seu site</h1>
-        <p className="mt-2 text-sm text-zinc-500">
+        <p className="mt-2 text-sm text-zinc-600">
           Entre com sua conta Google para editar a página Sobre.
         </p>
         <button
@@ -169,7 +169,7 @@ export default function AboutEditor() {
     return (
       <div className="mx-auto max-w-md py-16 text-center">
         <h1 className="text-xl font-bold text-zinc-900">Acesso restrito</h1>
-        <p className="mt-2 text-sm text-zinc-500">
+        <p className="mt-2 text-sm text-zinc-600">
           A conta {email} não tem permissão para editar este site.
         </p>
         <button
@@ -189,13 +189,13 @@ export default function AboutEditor() {
     <div className="mx-auto max-w-2xl py-8">
       <div className="flex items-center justify-between">
         <div>
-          <a href="/painel" className="text-xs font-medium text-zinc-400 hover:text-zinc-600">
+          <a href="/painel" className="text-xs font-medium text-zinc-500 hover:text-zinc-600">
             ← Painel
           </a>
           <h1 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
             Editar página Sobre
           </h1>
-          <p className="mt-1 text-xs text-zinc-400">Logada como {email}</p>
+          <p className="mt-1 text-xs text-zinc-500">Logada como {email}</p>
         </div>
         <button
           onClick={async () => {
@@ -219,7 +219,7 @@ export default function AboutEditor() {
         <section className="mt-8 space-y-3 rounded-2xl border border-zinc-200 bg-white p-5">
           <h2 className="text-sm font-bold text-zinc-900">Perfil</h2>
           <label className="block">
-            <span className="text-xs font-medium text-zinc-500">Frase de posicionamento</span>
+            <span className="text-xs font-medium text-zinc-600">Frase de posicionamento</span>
             <textarea
               rows={2}
               value={prof.positioning}
@@ -228,7 +228,7 @@ export default function AboutEditor() {
             />
           </label>
           <label className="block">
-            <span className="text-xs font-medium text-zinc-500">Apresentação</span>
+            <span className="text-xs font-medium text-zinc-600">Apresentação</span>
             <textarea
               rows={4}
               value={prof.intro}
@@ -246,7 +246,7 @@ export default function AboutEditor() {
             Mostrar faixa &quot;aberta a oportunidades&quot;
           </label>
           <label className="block">
-            <span className="text-xs font-medium text-zinc-500">Título da faixa</span>
+            <span className="text-xs font-medium text-zinc-600">Título da faixa</span>
             <input
               value={prof.availability_headline}
               onChange={(e) => setProf({ ...prof, availability_headline: e.target.value })}
@@ -254,7 +254,7 @@ export default function AboutEditor() {
             />
           </label>
           <label className="block">
-            <span className="text-xs font-medium text-zinc-500">Vagas (separadas por vírgula)</span>
+            <span className="text-xs font-medium text-zinc-600">Vagas (separadas por vírgula)</span>
             <input
               value={rolesText}
               onChange={(e) => setRolesText(e.target.value)}
@@ -262,7 +262,7 @@ export default function AboutEditor() {
             />
           </label>
           <label className="block">
-            <span className="text-xs font-medium text-zinc-500">Observação (modalidade, disponibilidade)</span>
+            <span className="text-xs font-medium text-zinc-600">Observação (modalidade, disponibilidade)</span>
             <input
               value={prof.availability_note}
               onChange={(e) => setProf({ ...prof, availability_note: e.target.value })}
@@ -299,7 +299,7 @@ export default function AboutEditor() {
 
             <div className="mt-3 space-y-3">
               {items.length === 0 && (
-                <p className="rounded-lg border border-dashed border-zinc-200 p-4 text-center text-xs text-zinc-400">
+                <p className="rounded-lg border border-dashed border-zinc-200 p-4 text-center text-xs text-zinc-500">
                   Nenhum item ainda.
                 </p>
               )}
@@ -309,7 +309,7 @@ export default function AboutEditor() {
                   {spec.fields.map((field) =>
                     field === "body" ? (
                       <label key={field} className="block">
-                        <span className="text-xs font-medium text-zinc-500">{FIELD_LABEL[field]}</span>
+                        <span className="text-xs font-medium text-zinc-600">{FIELD_LABEL[field]}</span>
                         <textarea
                           rows={2}
                           value={entry.body ?? ""}
@@ -319,7 +319,7 @@ export default function AboutEditor() {
                       </label>
                     ) : (
                       <label key={field} className="block">
-                        <span className="text-xs font-medium text-zinc-500">{FIELD_LABEL[field]}</span>
+                        <span className="text-xs font-medium text-zinc-600">{FIELD_LABEL[field]}</span>
                         <input
                           value={
                             field === "items"
@@ -358,7 +358,7 @@ export default function AboutEditor() {
                         onClick={() => onMove(entry, -1)}
                         disabled={idx === 0}
                         aria-label="Subir"
-                        className="rounded-lg border border-zinc-200 p-1.5 text-zinc-500 hover:border-zinc-300 disabled:opacity-30"
+                        className="rounded-lg border border-zinc-200 p-1.5 text-zinc-600 hover:border-zinc-300 disabled:opacity-30"
                       >
                         <ArrowUp size={14} />
                       </button>
@@ -366,7 +366,7 @@ export default function AboutEditor() {
                         onClick={() => onMove(entry, 1)}
                         disabled={idx === items.length - 1}
                         aria-label="Descer"
-                        className="rounded-lg border border-zinc-200 p-1.5 text-zinc-500 hover:border-zinc-300 disabled:opacity-30"
+                        className="rounded-lg border border-zinc-200 p-1.5 text-zinc-600 hover:border-zinc-300 disabled:opacity-30"
                       >
                         <ArrowDown size={14} />
                       </button>
@@ -379,7 +379,7 @@ export default function AboutEditor() {
         );
       })}
 
-      <p className="mt-10 text-center text-xs text-zinc-400">
+      <p className="mt-10 text-center text-xs text-zinc-500">
         As mudanças aparecem na página pública em até ~30 segundos.
       </p>
     </div>

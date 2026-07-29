@@ -96,7 +96,7 @@ export default function AgroLayout({
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-zinc-500 transition hover:text-zinc-900"
+                className="text-sm font-medium text-zinc-600 transition hover:text-zinc-900"
               >
                 {link.label}
               </Link>
@@ -109,10 +109,10 @@ export default function AgroLayout({
         </main>
 
         <footer className="border-t border-zinc-200 bg-white">
-          <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-zinc-400 sm:flex-row sm:px-6">
+          <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-zinc-500 sm:flex-row sm:px-6">
             <p>
               © {new Date().getFullYear()} {profile.name} —{" "}
-              <Link href="/" className="font-medium text-zinc-500 hover:text-emerald-600">
+              <Link href="/" className="font-medium text-zinc-600 hover:text-emerald-600">
                 devlini.com
               </Link>
             </p>

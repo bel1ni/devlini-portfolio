@@ -62,7 +62,7 @@ export default async function BlogPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      <nav className="text-xs text-zinc-400">
+      <nav className="text-xs text-zinc-500">
         <Link href="/" className="hover:text-zinc-600">
           Início
         </Link>{" "}
@@ -72,12 +72,12 @@ export default async function BlogPage({
       <h1 className="mt-3 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
         Blog
       </h1>
-      <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+      <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
         Meu diário de aprendizados em tecnologia — construindo em público.
       </p>
 
       {posts.length === 0 ? (
-        <p className="mt-8 rounded-xl border border-dashed border-zinc-200 p-10 text-center text-sm text-zinc-400">
+        <p className="mt-8 rounded-xl border border-dashed border-zinc-200 p-10 text-center text-sm text-zinc-500">
           Em breve.
         </p>
       ) : (
@@ -93,12 +93,12 @@ export default async function BlogPage({
                 <img src={p.cover_url} alt={p.title} className="h-40 w-full object-cover" />
               )}
               <div className="p-5">
-                <p className="text-xs text-zinc-400">{fmt(p.published_at)}</p>
+                <p className="text-xs text-zinc-500">{fmt(p.published_at)}</p>
                 <h2 className="mt-1 text-base font-semibold text-zinc-900 transition group-hover:text-emerald-700">
                   {p.title}
                 </h2>
                 {p.excerpt && (
-                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-zinc-500">
+                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-zinc-600">
                     {p.excerpt}
                   </p>
                 )}

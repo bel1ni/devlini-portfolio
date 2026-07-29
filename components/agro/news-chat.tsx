@@ -89,12 +89,12 @@ export default function NewsChat({ newsId }: Props) {
       <div className="flex items-center gap-2">
         <Sparkles size={16} className="text-emerald-600" />
 
-        <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+        <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
           Pergunte à IA
         </span>
       </div>
 
-      <p className="mt-3 text-sm text-zinc-500">
+      <p className="mt-3 text-sm text-zinc-600">
         Tire dúvidas sobre esta notícia. O assistente responde com base no
         conteúdo da matéria.
       </p>
@@ -134,7 +134,7 @@ export default function NewsChat({ newsId }: Props) {
           ))}
 
           {loading && (
-            <div className="self-start rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-400">
+            <div className="self-start rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-500">
               <span className="animate-pulse">Pensando...</span>
             </div>
           )}
@@ -157,7 +157,7 @@ export default function NewsChat({ newsId }: Props) {
           onChange={(event) => setInput(event.target.value)}
           placeholder="Escreva sua dúvida sobre a notícia..."
           aria-label="Sua pergunta sobre a notícia"
-          className="w-full rounded-lg border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-600 focus:outline-none"
+          className="w-full rounded-lg border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-emerald-600 focus:outline-none"
         />
 
         <button

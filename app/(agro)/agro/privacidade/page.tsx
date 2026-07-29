@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function PrivacidadePage() {
   return (
     <div className="mx-auto max-w-3xl py-8">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
         Privacidade
       </h2>
 
@@ -103,7 +103,7 @@ export default function PrivacidadePage() {
         .
       </p>
 
-      <p className="mt-8 text-sm text-zinc-400">
+      <p className="mt-8 text-sm text-zinc-500">
         Última atualização: julho de 2026.
       </p>
     </div>

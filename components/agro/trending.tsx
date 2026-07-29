@@ -7,7 +7,7 @@ export default async function Trending() {
 
   return (
     <section className="mt-12">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
         Em alta agora
       </h2>
 
@@ -25,7 +25,7 @@ export default async function Trending() {
               {trend.title}
             </p>
 
-            <p className="mt-2 text-xs text-zinc-400">Score: {trend.score}</p>
+            <p className="mt-2 text-xs text-zinc-500">Score: {trend.score}</p>
           </div>
         ))}
       </div>
