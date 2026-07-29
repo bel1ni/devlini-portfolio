@@ -43,10 +43,16 @@ function seedData(): { profile: AboutProfile; entries: AboutEntry[] } {
   return { profile, entries };
 }
 
-export async function getAboutData(): Promise<{
-  profile: AboutProfile;
-  entries: AboutEntry[];
-}> {
+// Escolhe o campo em inglês (com fallback para o pt) quando locale === "en".
+function pick(en: string | null | undefined, pt: string, useEn: boolean): string {
+  return useEn ? (en && en.trim() ? en : pt) : pt;
+}
+
+export async function getAboutData(
+  locale: string = "pt"
+): Promise<{ profile: AboutProfile; entries: AboutEntry[] }> {
+  const en = locale === "en";
+
   try {
     const [{ data: profileRow }, { data: entryRows }] = await Promise.all([
       supabase.from("about_profile").select("*").eq("id", 1).maybeSingle(),
@@ -59,16 +65,35 @@ export async function getAboutData(): Promise<{
 
     if (!profileRow) return seedData();
 
+    const rolesEn: string[] = profileRow.roles_en ?? [];
+
     return {
       profile: {
-        positioning: profileRow.positioning ?? "",
-        intro: profileRow.intro ?? "",
+        positioning: pick(profileRow.positioning_en, profileRow.positioning ?? "", en),
+        intro: pick(profileRow.intro_en, profileRow.intro ?? "", en),
         availability_open: profileRow.availability_open ?? false,
-        availability_headline: profileRow.availability_headline ?? "",
-        availability_note: profileRow.availability_note ?? "",
-        roles: profileRow.roles ?? [],
+        availability_headline: pick(
+          profileRow.availability_headline_en,
+          profileRow.availability_headline ?? "",
+          en
+        ),
+        availability_note: pick(
+          profileRow.availability_note_en,
+          profileRow.availability_note ?? "",
+          en
+        ),
+        roles: en && rolesEn.length ? rolesEn : profileRow.roles ?? [],
       },
-      entries: (entryRows ?? []) as AboutEntry[],
+      entries: ((entryRows ?? []) as Record<string, unknown>[]).map((row) => ({
+        id: row.id as string,
+        section: row.section as AboutEntry["section"],
+        title: pick((row.title_en as string) ?? null, (row.title as string) ?? "", en) || null,
+        body: pick((row.body_en as string) ?? null, (row.body as string) ?? "", en) || null,
+        tag: pick((row.tag_en as string) ?? null, (row.tag as string) ?? "", en) || null,
+        url: (row.url as string) ?? null,
+        items: (row.items as string[]) ?? [],
+        position: (row.position as number) ?? 0,
+      })),
     };
   } catch {
     return seedData();

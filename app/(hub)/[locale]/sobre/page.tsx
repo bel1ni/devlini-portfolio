@@ -16,15 +16,21 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const { profile: data } = await getAboutData();
-  const title = `Sobre — ${profile.name}`;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const { profile: data } = await getAboutData(locale);
+  const title = `${locale === "en" ? "About" : "Sobre"} — ${profile.name}`;
+  const path = locale === "en" ? "/en/sobre" : "/sobre";
 
   return {
     title,
     description: data.positioning,
-    alternates: { canonical: "/sobre" },
-    openGraph: { title, description: data.positioning, url: "/sobre", type: "profile" },
+    alternates: { canonical: path, languages: { pt: "/sobre", en: "/en/sobre" } },
+    openGraph: { title, description: data.positioning, url: path, type: "profile" },
   };
 }
 
@@ -37,11 +43,32 @@ export default async function SobrePage({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const { profile: data, entries } = await getAboutData();
+  const { profile: data, entries } = await getAboutData(locale);
   const story = entriesBySection(entries, "story");
   const skills = entriesBySection(entries, "skill");
   const highlights = entriesBySection(entries, "highlight");
   const learning = entriesBySection(entries, "learning");
+
+  const t =
+    locale === "en"
+      ? {
+          story: "My story",
+          skills: "What I'm good at",
+          built: "What I've built",
+          learning: "What I'm learning now",
+          contact: "Get in touch",
+          cv: "Download résumé (PDF)",
+          talk: "Let's talk? Find me here:",
+        }
+      : {
+          story: "Minha história",
+          skills: "No que sou boa",
+          built: "O que já construí",
+          learning: "O que estou aprendendo agora",
+          contact: "Entrar em contato",
+          cv: "Baixar currículo (PDF)",
+          talk: "Vamos conversar? Me encontre por aqui:",
+        };
 
   return (
     <div className="mx-auto max-w-3xl py-8">
@@ -102,7 +129,7 @@ export default async function SobrePage({
               href={`mailto:${profile.email}`}
               className="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 active:scale-[0.97]"
             >
-              Entrar em contato
+              {t.contact}
             </a>
             <a
               href="/curriculo-mariane-belini.pdf"
@@ -110,7 +137,7 @@ export default async function SobrePage({
               rel="noopener"
               className="rounded-lg border border-emerald-600/30 bg-white px-5 py-2.5 text-sm font-semibold text-emerald-800 transition hover:border-emerald-600/50 active:scale-[0.97]"
             >
-              Baixar currículo (PDF)
+              {t.cv}
             </a>
           </div>
         </section>
@@ -120,7 +147,7 @@ export default async function SobrePage({
       {story.length > 0 && (
         <section className="mt-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
-            Minha história
+            {t.story}
           </h2>
           <div className="mt-4 space-y-4">
             {story.map((p) => (
@@ -136,7 +163,7 @@ export default async function SobrePage({
       {skills.length > 0 && (
         <section className="mt-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
-            No que sou boa
+            {t.skills}
           </h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {skills.map((skill) => (
@@ -167,7 +194,7 @@ export default async function SobrePage({
       {highlights.length > 0 && (
         <section className="mt-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
-            O que já construí
+            {t.built}
           </h2>
           <div className="mt-4 grid gap-3">
             {highlights.map((project) => {
@@ -204,7 +231,7 @@ export default async function SobrePage({
       {learning.length > 0 && (
         <section className="mt-12">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
-            O que estou aprendendo agora
+            {t.learning}
           </h2>
           <div className="mt-4 space-y-3">
             {learning.map((item) => (
@@ -224,7 +251,7 @@ export default async function SobrePage({
 
       {/* Contato / redes */}
       <section className="mt-12 border-t border-zinc-200 pt-8 text-center">
-        <p className="text-sm text-zinc-600">Vamos conversar? Me encontre por aqui:</p>
+        <p className="text-sm text-zinc-600">{t.talk}</p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           {socialLinks.map((s) => (
             <TrackLink
