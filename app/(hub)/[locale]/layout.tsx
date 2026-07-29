@@ -48,6 +48,9 @@ export async function generateMetadata({
       type: "profile",
       locale: locale === "pt" ? "pt_BR" : "en_US",
     },
+    verification: {
+      google: "guB21DqlYV-HlE2lbjztwYD22v0PLXlzreismRQtjMc",
+    },
   };
 }
 

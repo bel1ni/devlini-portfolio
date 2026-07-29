@@ -94,6 +94,16 @@ export default async function HomePage({
 
       {/* Coluna principal */}
       <div>
+        {/* Banner / capa da marca */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/devlini-banner.jpg"
+          alt="DEVLINI — desenvolvimento full-stack para o agronegócio"
+          width={1600}
+          height={640}
+          className="mb-6 w-full rounded-2xl border border-zinc-200"
+        />
+
         {/* Hero */}
         <section className="mt-4 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
