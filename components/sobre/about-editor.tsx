@@ -14,7 +14,7 @@ import {
   swapPositions,
   updateEntry,
 } from "@/lib/sobre/mutations";
-import type { AboutEntry, AboutProfile, AboutSection } from "@/lib/sobre/types";
+import type { AboutEntryRow, AboutSection } from "@/lib/sobre/types";
 
 const ADMIN_EMAIL = profile.personalEmail;
 
@@ -35,7 +35,19 @@ const FIELD_LABEL: Record<Field, string> = {
   url: "Link",
 };
 
-type Editable = AboutEntry & { itemsText: string };
+type ProfState = {
+  positioning: string;
+  intro: string;
+  availability_open: boolean;
+  availability_headline: string;
+  availability_note: string;
+  positioning_en: string;
+  intro_en: string;
+  availability_headline_en: string;
+  availability_note_en: string;
+};
+
+type Editable = AboutEntryRow & { itemsText: string };
 
 const input =
   "w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 outline-none focus:border-emerald-500";
@@ -45,10 +57,14 @@ export default function AboutEditor() {
     "loading" | "anon" | "unauthorized" | "ready"
   >("loading");
   const [email, setEmail] = useState("");
-  const [prof, setProf] = useState<AboutProfile | null>(null);
+  const [lang, setLang] = useState<"pt" | "en">("pt");
+  const [prof, setProf] = useState<ProfState | null>(null);
   const [rolesText, setRolesText] = useState("");
+  const [rolesTextEn, setRolesTextEn] = useState("");
   const [entries, setEntries] = useState<Editable[]>([]);
   const [msg, setMsg] = useState("");
+
+  const en = lang === "en";
 
   const flash = useCallback((text: string) => {
     setMsg(text);
@@ -69,21 +85,25 @@ export default function AboutEditor() {
       setEmail(userEmail);
       if (userEmail !== ADMIN_EMAIL) return setStatus("unauthorized");
 
-      const { data: profileRow } = await supabase
+      const { data: r } = await supabase
         .from("about_profile")
         .select("*")
         .eq("id", 1)
         .maybeSingle();
 
       setProf({
-        positioning: profileRow?.positioning ?? "",
-        intro: profileRow?.intro ?? "",
-        availability_open: profileRow?.availability_open ?? true,
-        availability_headline: profileRow?.availability_headline ?? "",
-        availability_note: profileRow?.availability_note ?? "",
-        roles: profileRow?.roles ?? [],
+        positioning: r?.positioning ?? "",
+        intro: r?.intro ?? "",
+        availability_open: r?.availability_open ?? true,
+        availability_headline: r?.availability_headline ?? "",
+        availability_note: r?.availability_note ?? "",
+        positioning_en: r?.positioning_en ?? "",
+        intro_en: r?.intro_en ?? "",
+        availability_headline_en: r?.availability_headline_en ?? "",
+        availability_note_en: r?.availability_note_en ?? "",
       });
-      setRolesText((profileRow?.roles ?? []).join(", "));
+      setRolesText((r?.roles ?? []).join(", "));
+      setRolesTextEn((r?.roles_en ?? []).join(", "));
       await refreshEntries();
       setStatus("ready");
     }
@@ -92,8 +112,19 @@ export default function AboutEditor() {
 
   async function onSaveProfile() {
     if (!prof) return;
-    const roles = rolesText.split(",").map((r) => r.trim()).filter(Boolean);
-    const { error } = await saveProfile({ ...prof, roles });
+    const { error } = await saveProfile({
+      positioning: prof.positioning,
+      intro: prof.intro,
+      availability_open: prof.availability_open,
+      availability_headline: prof.availability_headline,
+      availability_note: prof.availability_note,
+      roles: rolesText.split(",").map((r) => r.trim()).filter(Boolean),
+      positioning_en: prof.positioning_en,
+      intro_en: prof.intro_en,
+      availability_headline_en: prof.availability_headline_en,
+      availability_note_en: prof.availability_note_en,
+      roles_en: rolesTextEn.split(",").map((r) => r.trim()).filter(Boolean),
+    });
     flash(error ? `Erro: ${error}` : "Perfil salvo!");
   }
 
@@ -106,6 +137,9 @@ export default function AboutEditor() {
       tag: entry.tag,
       url: entry.url,
       items,
+      title_en: entry.title_en,
+      body_en: entry.body_en,
+      tag_en: entry.tag_en,
     });
     flash(error ? `Erro: ${error}` : "Item salvo!");
   }
@@ -208,6 +242,26 @@ export default function AboutEditor() {
         </button>
       </div>
 
+      {/* Seletor de idioma */}
+      <div className="mt-4 inline-flex rounded-lg border border-zinc-200 bg-white p-1">
+        {(["pt", "en"] as const).map((l) => (
+          <button
+            key={l}
+            onClick={() => setLang(l)}
+            className={`rounded-md px-4 py-1.5 text-sm font-medium transition ${
+              lang === l ? "bg-emerald-600 text-white" : "text-zinc-600 hover:text-zinc-900"
+            }`}
+          >
+            {l === "pt" ? "🇧🇷 Português" : "🇬🇧 English"}
+          </button>
+        ))}
+      </div>
+      <p className="mt-2 text-xs text-zinc-500">
+        {en
+          ? "Editando o inglês (/en/sobre). Itens e links são compartilhados — edite-os no português."
+          : "Editando o português (/sobre)."}
+      </p>
+
       {msg && (
         <div className="sticky top-2 z-10 mt-4 rounded-lg bg-zinc-900 px-4 py-2 text-center text-sm font-medium text-white">
           {msg}
@@ -216,14 +270,16 @@ export default function AboutEditor() {
 
       {/* Perfil */}
       {prof && (
-        <section className="mt-8 space-y-3 rounded-2xl border border-zinc-200 bg-white p-5">
+        <section className="mt-6 space-y-3 rounded-2xl border border-zinc-200 bg-white p-5">
           <h2 className="text-sm font-bold text-zinc-900">Perfil</h2>
           <label className="block">
             <span className="text-xs font-medium text-zinc-600">Frase de posicionamento</span>
             <textarea
               rows={2}
-              value={prof.positioning}
-              onChange={(e) => setProf({ ...prof, positioning: e.target.value })}
+              value={en ? prof.positioning_en : prof.positioning}
+              onChange={(e) =>
+                setProf({ ...prof, [en ? "positioning_en" : "positioning"]: e.target.value })
+              }
               className={input}
             />
           </label>
@@ -231,41 +287,55 @@ export default function AboutEditor() {
             <span className="text-xs font-medium text-zinc-600">Apresentação</span>
             <textarea
               rows={4}
-              value={prof.intro}
-              onChange={(e) => setProf({ ...prof, intro: e.target.value })}
+              value={en ? prof.intro_en : prof.intro}
+              onChange={(e) =>
+                setProf({ ...prof, [en ? "intro_en" : "intro"]: e.target.value })
+              }
               className={input}
             />
           </label>
-          <label className="flex items-center gap-2 text-sm text-zinc-700">
-            <input
-              type="checkbox"
-              checked={prof.availability_open}
-              onChange={(e) => setProf({ ...prof, availability_open: e.target.checked })}
-              className="size-4 accent-emerald-600"
-            />
-            Mostrar faixa &quot;aberta a oportunidades&quot;
-          </label>
+          {!en && (
+            <label className="flex items-center gap-2 text-sm text-zinc-700">
+              <input
+                type="checkbox"
+                checked={prof.availability_open}
+                onChange={(e) => setProf({ ...prof, availability_open: e.target.checked })}
+                className="size-4 accent-emerald-600"
+              />
+              Mostrar faixa &quot;aberta a oportunidades&quot;
+            </label>
+          )}
           <label className="block">
             <span className="text-xs font-medium text-zinc-600">Título da faixa</span>
             <input
-              value={prof.availability_headline}
-              onChange={(e) => setProf({ ...prof, availability_headline: e.target.value })}
+              value={en ? prof.availability_headline_en : prof.availability_headline}
+              onChange={(e) =>
+                setProf({
+                  ...prof,
+                  [en ? "availability_headline_en" : "availability_headline"]: e.target.value,
+                })
+              }
               className={input}
             />
           </label>
           <label className="block">
             <span className="text-xs font-medium text-zinc-600">Vagas (separadas por vírgula)</span>
             <input
-              value={rolesText}
-              onChange={(e) => setRolesText(e.target.value)}
+              value={en ? rolesTextEn : rolesText}
+              onChange={(e) => (en ? setRolesTextEn : setRolesText)(e.target.value)}
               className={input}
             />
           </label>
           <label className="block">
             <span className="text-xs font-medium text-zinc-600">Observação (modalidade, disponibilidade)</span>
             <input
-              value={prof.availability_note}
-              onChange={(e) => setProf({ ...prof, availability_note: e.target.value })}
+              value={en ? prof.availability_note_en : prof.availability_note}
+              onChange={(e) =>
+                setProf({
+                  ...prof,
+                  [en ? "availability_note_en" : "availability_note"]: e.target.value,
+                })
+              }
               className={input}
             />
           </label>
@@ -281,6 +351,10 @@ export default function AboutEditor() {
       {/* Seções de itens */}
       {(Object.keys(SECTION_SPEC) as AboutSection[]).map((section) => {
         const spec = SECTION_SPEC[section];
+        // No inglês só os campos traduzíveis (itens e links são compartilhados).
+        const fields = en
+          ? spec.fields.filter((f) => f === "title" || f === "body" || f === "tag")
+          : spec.fields;
         const items = entries
           .filter((e) => e.section === section)
           .sort((a, b) => a.position - b.position);
@@ -289,12 +363,14 @@ export default function AboutEditor() {
           <section key={section} className="mt-8">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-bold text-zinc-900">{spec.label}</h2>
-              <button
-                onClick={() => onAdd(section)}
-                className="inline-flex items-center gap-1 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-600 hover:border-zinc-300"
-              >
-                <Plus size={14} /> Adicionar
-              </button>
+              {!en && (
+                <button
+                  onClick={() => onAdd(section)}
+                  className="inline-flex items-center gap-1 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-600 hover:border-zinc-300"
+                >
+                  <Plus size={14} /> Adicionar
+                </button>
+              )}
             </div>
 
             <div className="mt-3 space-y-3">
@@ -306,14 +382,23 @@ export default function AboutEditor() {
 
               {items.map((entry, idx) => (
                 <div key={entry.id} className="space-y-2 rounded-xl border border-zinc-200 bg-white p-4">
-                  {spec.fields.map((field) =>
-                    field === "body" ? (
+                  {fields.map((field) => {
+                    // chave da coluna conforme idioma (title→title_en, etc.)
+                    const key: keyof Editable =
+                      field === "items"
+                        ? "itemsText"
+                        : en && (field === "title" || field === "body" || field === "tag")
+                          ? (`${field}_en` as keyof Editable)
+                          : (field as keyof Editable);
+                    const value = (entry[key] as string | null) ?? "";
+
+                    return field === "body" ? (
                       <label key={field} className="block">
                         <span className="text-xs font-medium text-zinc-600">{FIELD_LABEL[field]}</span>
                         <textarea
                           rows={2}
-                          value={entry.body ?? ""}
-                          onChange={(e) => setField(entry.id, "body", e.target.value)}
+                          value={value}
+                          onChange={(e) => setField(entry.id, key, e.target.value)}
                           className={input}
                         />
                       </label>
@@ -321,23 +406,13 @@ export default function AboutEditor() {
                       <label key={field} className="block">
                         <span className="text-xs font-medium text-zinc-600">{FIELD_LABEL[field]}</span>
                         <input
-                          value={
-                            field === "items"
-                              ? entry.itemsText
-                              : (entry[field] as string | null) ?? ""
-                          }
-                          onChange={(e) =>
-                            setField(
-                              entry.id,
-                              field === "items" ? "itemsText" : field,
-                              e.target.value
-                            )
-                          }
+                          value={value}
+                          onChange={(e) => setField(entry.id, key, e.target.value)}
                           className={input}
                         />
                       </label>
-                    )
-                  )}
+                    );
+                  })}
 
                   <div className="flex items-center gap-2 pt-1">
                     <button
@@ -346,31 +421,35 @@ export default function AboutEditor() {
                     >
                       Salvar
                     </button>
-                    <button
-                      onClick={() => onDelete(entry.id)}
-                      aria-label="Excluir"
-                      className="rounded-lg border border-red-200 bg-red-50 p-1.5 text-red-600 hover:bg-red-100"
-                    >
-                      <Trash2 size={14} />
-                    </button>
-                    <div className="ml-auto flex gap-1">
-                      <button
-                        onClick={() => onMove(entry, -1)}
-                        disabled={idx === 0}
-                        aria-label="Subir"
-                        className="rounded-lg border border-zinc-200 p-1.5 text-zinc-600 hover:border-zinc-300 disabled:opacity-30"
-                      >
-                        <ArrowUp size={14} />
-                      </button>
-                      <button
-                        onClick={() => onMove(entry, 1)}
-                        disabled={idx === items.length - 1}
-                        aria-label="Descer"
-                        className="rounded-lg border border-zinc-200 p-1.5 text-zinc-600 hover:border-zinc-300 disabled:opacity-30"
-                      >
-                        <ArrowDown size={14} />
-                      </button>
-                    </div>
+                    {!en && (
+                      <>
+                        <button
+                          onClick={() => onDelete(entry.id)}
+                          aria-label="Excluir"
+                          className="rounded-lg border border-red-200 bg-red-50 p-1.5 text-red-600 hover:bg-red-100"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                        <div className="ml-auto flex gap-1">
+                          <button
+                            onClick={() => onMove(entry, -1)}
+                            disabled={idx === 0}
+                            aria-label="Subir"
+                            className="rounded-lg border border-zinc-200 p-1.5 text-zinc-600 hover:border-zinc-300 disabled:opacity-30"
+                          >
+                            <ArrowUp size={14} />
+                          </button>
+                          <button
+                            onClick={() => onMove(entry, 1)}
+                            disabled={idx === items.length - 1}
+                            aria-label="Descer"
+                            className="rounded-lg border border-zinc-200 p-1.5 text-zinc-600 hover:border-zinc-300 disabled:opacity-30"
+                          >
+                            <ArrowDown size={14} />
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               ))}
