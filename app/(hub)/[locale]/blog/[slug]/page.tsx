@@ -7,6 +7,8 @@ import { routing } from "@/i18n/routing";
 import { profile, SITE_URL } from "@/content/site";
 import { getPost, getPosts, getPostSlugs } from "@/lib/blog/get-posts";
 import { EditFab } from "@/components/edit-fab";
+import { ShareButtons } from "@/components/blog/share-buttons";
+import { Comments } from "@/components/blog/comments";
 
 export const revalidate = 30;
 
@@ -107,6 +109,10 @@ export default async function PostPage({
           {post.body}
         </div>
       )}
+
+      <ShareButtons title={post.title} />
+
+      <Comments slug={post.slug} />
 
       {others.length > 0 && (
         <section className="mt-12 border-t border-zinc-200 pt-8">
