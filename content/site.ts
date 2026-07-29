@@ -8,12 +8,12 @@ export const SITE_URL =
 export const profile = {
   name: "Mariane Belini",
   headline: {
-    pt: "Desenvolvedora full-stack & fundadora do controledegado.app",
-    en: "Full-stack developer & founder of controledegado.app",
+    pt: "Desenvolvedora full-stack",
+    en: "Full-stack developer",
   } satisfies Localized,
   bio: {
-    pt: "Dev full stack com domínio em Inteligência Artificial, construindo melhorias para o agronegócio. Criei do zero o controledegado.app — gestão de rebanho de ponta a ponta, do banco de dados à Play Store.",
-    en: "Full-stack dev at Chateau Labs, building SaaS for agribusiness. I created controledegado.app from scratch — livestock management end to end, from the database to the Play Store.",
+    pt: "Eu construo ideias e torno realidade. Criei o controledegado.app (gestão de rebanho, do banco de dados à Google Play) e o BELAGRO (portal de notícias do agro com IA). Aprendo entregando: cada projeto meu está no ar, sendo usado.",
+    en: "I turn ideas into reality. I built controledegado.app (livestock management, from the database to Google Play) and BELAGRO (an agribusiness news portal powered by AI). I learn by shipping — every project of mine is live and in use.",
   } satisfies Localized,
   location: { pt: "Brasil", en: "Brazil" } satisfies Localized,
   // E-mail público do site (marca); o pessoal fica para uso interno/admin

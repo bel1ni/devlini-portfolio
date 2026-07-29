@@ -49,6 +49,10 @@ export default async function HomePage({
   // Dados do "Sobre" (mesma fonte editável da página /sobre; com fallback).
   const { profile: about } = await getAboutData();
 
+  // Home espelha o /sobre no pt (edita lá, muda aqui); no en usa content/site.ts.
+  const heroHeadline = l === "pt" ? about.positioning : profile.headline.en;
+  const heroBio = l === "pt" ? about.intro : profile.bio.en;
+
   // Slots: anúncio do painel (banco) tem prioridade; senão, config estática
   const dbAds = await getActiveAds();
   const slots: (Ad | null)[] = [1, 2, 3].map((n) => {
@@ -119,10 +123,10 @@ export default async function HomePage({
               {profile.name}
             </h1>
             <p className="mt-1 font-medium text-emerald-700">
-              {profile.headline[l]}
+              {heroHeadline}
             </p>
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-600">
-              {profile.bio[l]}
+              {heroBio}
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-zinc-500">
               <span>{profile.location[l]}</span>
