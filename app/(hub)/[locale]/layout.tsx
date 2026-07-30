@@ -49,7 +49,7 @@ export async function generateMetadata({
       locale: locale === "pt" ? "pt_BR" : "en_US",
     },
     verification: {
-      google: "guB21DqlYV-HlE2lbjztwYD22v0PLXlzreismRQtjMc",
+      google: "m_S9oCMiMZT-_TXnUXU8eXshcaAH9l5KW1u2cEJ-DQw",
     },
   };
 }

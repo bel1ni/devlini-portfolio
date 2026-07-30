@@ -89,18 +89,14 @@ export default async function ProjetoPage({
         }}
       />
 
-      <nav className="text-xs text-zinc-500">
-        <Link href="/" className="hover:text-zinc-600">
-          Início
-        </Link>{" "}
-        /{" "}
-        <Link href="/projetos" className="hover:text-zinc-600">
-          Projetos
-        </Link>{" "}
-        / <span className="text-zinc-600">{project.name}</span>
-      </nav>
+      <Link
+        href="/projetos"
+        className="inline-flex items-center gap-1 text-xs font-medium text-zinc-500 transition hover:text-emerald-700"
+      >
+        ← Projetos
+      </Link>
 
-      <div className="mt-3 flex flex-wrap items-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center gap-3">
         <h1 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
           {project.name}
         </h1>

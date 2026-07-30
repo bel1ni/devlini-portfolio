@@ -79,21 +79,17 @@ export default async function PostPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      <nav className="text-xs text-zinc-500">
-        <Link href="/" className="hover:text-zinc-600">
-          Início
-        </Link>{" "}
-        /{" "}
-        <Link href="/blog" className="hover:text-zinc-600">
-          Blog
-        </Link>{" "}
-        / <span className="text-zinc-600">{post.title}</span>
-      </nav>
+      <Link
+        href="/blog"
+        className="inline-flex items-center gap-1 text-xs font-medium text-zinc-500 transition hover:text-emerald-700"
+      >
+        ← Blog
+      </Link>
 
-      <p className="mt-4 text-xs text-zinc-500">{fmt(post.published_at)}</p>
-      <h1 className="mt-1 text-2xl font-bold leading-tight tracking-tight text-zinc-900 sm:text-3xl">
+      <h1 className="mt-4 text-2xl font-bold leading-tight tracking-tight text-zinc-900 sm:text-[2rem]">
         {post.title}
       </h1>
+      <p className="mt-2 text-xs text-zinc-500">{fmt(post.published_at)}</p>
 
       {post.cover_url && (
         // eslint-disable-next-line @next/next/no-img-element
