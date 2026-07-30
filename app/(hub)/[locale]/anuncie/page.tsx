@@ -2,10 +2,11 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
-import { adPlans, profile } from "@/content/site";
+import { adPlans } from "@/content/site";
 import { adsDbEnabled } from "@/lib/ads-db";
 import { TrackLink } from "@/components/track-link";
 import { CheckoutButton } from "@/components/checkout-button";
+import { AdRequestForm } from "@/components/ad-request-form";
 import { Icon } from "@/components/icons";
 
 export default async function AdvertisePage({
@@ -24,10 +25,9 @@ export default async function AdvertisePage({
   // sem eles, o CTA cai para o fluxo por e-mail (Fase 1)
   const checkoutEnabled = !!process.env.STRIPE_SECRET_KEY && adsDbEnabled;
 
-  const mailto = (planId: string) =>
-    `mailto:${profile.email}?subject=${encodeURIComponent(
-      `${t("emailSubject")} — ${adPlans.find((p) => p.id === planId)?.duration[l]}`,
-    )}`;
+  // Sem checkout (Stripe adiado): o CTA leva ao formulário de pedido, com o
+  // plano pré-selecionado.
+  const planAnchor = (planId: string) => `?plano=${planId}#anunciar`;
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -93,7 +93,7 @@ export default async function AdvertisePage({
               <TrackLink
                 event="ad_plan_click"
                 eventData={{ plan: plan.id }}
-                href={mailto(plan.id)}
+                href={planAnchor(plan.id)}
                 className={
                   plan.featured
                     ? "mt-5 rounded-lg bg-emerald-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-emerald-700 active:scale-[0.97]"
@@ -140,6 +140,23 @@ export default async function AdvertisePage({
           </div>
         ))}
       </section>
+
+      {/* Formulário de pedido (quando o checkout automático está desligado) */}
+      {!checkoutEnabled && (
+        <section id="anunciar" className="mt-16 scroll-mt-20">
+          <h2 className="text-xl font-bold tracking-tight text-zinc-900">
+            {l === "pt" ? "Quero anunciar" : "I want to advertise"}
+          </h2>
+          <p className="mt-1 text-sm text-zinc-600">
+            {l === "pt"
+              ? "Preencha e a Mariane entra em contato para combinar o pagamento e publicar o anúncio."
+              : "Fill this out and Mariane will reach out to arrange payment and publish your ad."}
+          </p>
+          <div className="mt-4">
+            <AdRequestForm locale={l} />
+          </div>
+        </section>
+      )}
     </div>
   );
 }
