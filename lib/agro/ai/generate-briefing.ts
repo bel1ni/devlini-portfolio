@@ -1,4 +1,5 @@
 import type { NewsItem } from "@/types/agro-news"
+import { chatCompletion } from "./openrouter"
 
 export type BriefingItem = {
     news: NewsItem
@@ -22,9 +23,7 @@ function fallbackBriefing(news: NewsItem[]): Briefing {
 }
 
 export async function generateBriefing(news: NewsItem[]): Promise<Briefing> {
-    const apiKey = process.env.OPENROUTER_API_KEY?.trim()
-
-    if (!apiKey || news.length === 0) {
+    if (news.length === 0) {
         return fallbackBriefing(news)
     }
 
@@ -55,31 +54,11 @@ ${JSON.stringify(payload)}
 `
 
     try {
-        const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${apiKey}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    model: "openrouter/auto",
-                    messages: [{ role: "user", content: prompt }],
-                    max_tokens: 2000,
-                    temperature: 0.3,
-                }),
-                signal: AbortSignal.timeout(45_000),
-            }
-        )
-
-        if (!response.ok) {
-            console.warn("OpenRouter indisponível para o briefing:", response.status)
-            return fallbackBriefing(news)
-        }
-
-        const data = await response.json()
-        const content = data?.choices?.[0]?.message?.content?.trim()
+        const content = await chatCompletion([{ role: "user", content: prompt }], {
+            maxTokens: 2000,
+            temperature: 0.3,
+            timeoutMs: 45_000,
+        })
 
         if (!content) return fallbackBriefing(news)
 

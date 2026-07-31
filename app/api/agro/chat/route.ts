@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { getNewsById } from "@/lib/agro/supabase/get-news-by-id"
+import { chatCompletion } from "@/lib/agro/ai/openrouter"
 
 const MAX_MESSAGES = 10
 const MAX_MESSAGE_LENGTH = 1000
@@ -112,55 +113,17 @@ Regras:
 - não use markdown nem emojis
 `.trim()
 
-    try {
-        const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${apiKey}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    model: "openrouter/auto",
-                    messages: [
-                        { role: "system", content: systemPrompt },
-                        ...messages,
-                    ],
-                    max_tokens: 700,
-                    temperature: 0.3,
-                }),
-                signal: AbortSignal.timeout(25_000),
-            }
-        )
+    const reply = await chatCompletion(
+        [{ role: "system", content: systemPrompt }, ...messages],
+        { maxTokens: 700, temperature: 0.3 }
+    )
 
-        if (!response.ok) {
-            const errorText = await response.text()
-            console.warn("OpenRouter indisponível no chat:", response.status, errorText)
-
-            return NextResponse.json(
-                { error: "O assistente está indisponível no momento. Tente de novo em instantes." },
-                { status: 502 }
-            )
-        }
-
-        const data = await response.json()
-        const reply = data?.choices?.[0]?.message?.content?.trim()
-
-        if (!reply) {
-            return NextResponse.json(
-                { error: "O assistente não conseguiu responder. Tente reformular a pergunta." },
-                { status: 502 }
-            )
-        }
-
-        return NextResponse.json({ reply })
-    } catch (error) {
-        console.warn("Erro no chat da notícia:", error)
-
+    if (!reply) {
         return NextResponse.json(
             { error: "O assistente está indisponível no momento. Tente de novo em instantes." },
             { status: 502 }
         )
     }
+
+    return NextResponse.json({ reply })
 }

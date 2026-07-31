@@ -1,4 +1,5 @@
 import type { RawNews, StoredNews } from "@/types/agro-news"
+import { chatCompletion } from "./openrouter"
 
 const CHUNK_SIZE = 15
 
@@ -11,10 +12,6 @@ async function translateChunk(
     items: RawNews[],
     targetLanguage: "en" | "pt"
 ): Promise<TranslatedPair[] | null> {
-    const apiKey = process.env.OPENROUTER_API_KEY?.trim()
-
-    if (!apiKey) return null
-
     const languageName =
         targetLanguage === "pt" ? "português do Brasil" : "English"
 
@@ -40,31 +37,11 @@ ${JSON.stringify(payload)}
 `
 
     try {
-        const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${apiKey}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    model: "openai/gpt-4o-mini",
-                    messages: [{ role: "user", content: prompt }],
-                    max_tokens: 4000,
-                    temperature: 0.2,
-                }),
-                signal: AbortSignal.timeout(30_000),
-            }
-        )
-
-        if (!response.ok) {
-            console.warn("Tradução indisponível:", response.status)
-            return null
-        }
-
-        const data = await response.json()
-        const content = data?.choices?.[0]?.message?.content?.trim()
+        const content = await chatCompletion([{ role: "user", content: prompt }], {
+            maxTokens: 4000,
+            temperature: 0.2,
+            timeoutMs: 30_000,
+        })
 
         if (!content) return null
 

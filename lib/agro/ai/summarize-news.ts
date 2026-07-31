@@ -1,3 +1,5 @@
+import { chatCompletion } from "./openrouter"
+
 export async function summarizeNewsWithAI({
 		title,
 		description,
@@ -7,13 +9,6 @@ export async function summarizeNewsWithAI({
 		description: string
 		source?: string
 }) {
-		const apiKey = process.env.OPENROUTER_API_KEY?.trim()
-
-		if (!apiKey) {
-				console.warn("OPENROUTER_API_KEY não encontrada")
-				return null
-		}
-
 		const prompt = `
 Você é um jornalista especializado em agronegócio e redator do BELAGRO, portal de notícias para o produtor rural brasileiro.
 
@@ -52,38 +47,9 @@ ${description}
 Retorne apenas o resumo final.
 `
 
-		try {
-				const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-						method: "POST",
-						headers: {
-								Authorization: `Bearer ${apiKey}`,
-								"Content-Type": "application/json",
-						},
-						body: JSON.stringify({
-								model: "openrouter/auto",
-								messages: [
-										{
-												role: "user",
-												content: prompt,
-										},
-								],
-								max_tokens: 900,
-								temperature: 0.4,
-						}),
-						signal: AbortSignal.timeout(20_000),
-				})
-
-				if (!response.ok) {
-						const errorText = await response.text()
-						console.warn("OpenRouter indisponível:", response.status, errorText)
-						return null
-				}
-
-				const data = await response.json()
-
-				return data?.choices?.[0]?.message?.content?.trim() || null
-		} catch (error) {
-				console.warn("Erro ao chamar OpenRouter:", error)
-				return null
-		}
+		return chatCompletion([{ role: "user", content: prompt }], {
+				maxTokens: 900,
+				temperature: 0.4,
+				timeoutMs: 20_000,
+		})
 }
