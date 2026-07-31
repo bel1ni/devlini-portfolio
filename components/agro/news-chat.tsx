@@ -20,6 +20,24 @@ const SUGGESTIONS = [
 
 const MAX_INPUT_LENGTH = 500;
 
+// Renderiza o negrito `**assim**` que a IA usa, mantendo o resto como texto.
+// (Formatador mínimo — evita puxar uma lib de markdown só pra isso.)
+function renderRich(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
+    const bold = part.match(/^\*\*([^*]+)\*\*$/);
+
+    if (bold) {
+      return (
+        <strong key={index} className="font-semibold">
+          {bold[1]}
+        </strong>
+      );
+    }
+
+    return <span key={index}>{part}</span>;
+  });
+}
+
 export default function NewsChat({ newsId }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
@@ -123,13 +141,13 @@ export default function NewsChat({ newsId }: Props) {
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`max-w-[85%] rounded-xl px-4 py-2.5 text-sm leading-6 ${
+              className={`max-w-[85%] whitespace-pre-line rounded-xl px-4 py-2.5 text-sm leading-6 ${
                 message.role === "user"
                   ? "self-end bg-emerald-600 text-white"
                   : "self-start border border-zinc-200 bg-zinc-50 text-zinc-700"
               }`}
             >
-              {message.content}
+              {renderRich(message.content)}
             </div>
           ))}
 
