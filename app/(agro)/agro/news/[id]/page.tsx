@@ -1,7 +1,11 @@
 import Link from "next/link";
+import { after } from "next/server";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
+// O resumo por IA é gerado em segundo plano (after), então precisa de folga
+// além do timeout padrão de 10s do Hobby.
+export const maxDuration = 60;
 
 import { getBaseUrl } from "@/lib/agro/site-url";
 import { timeAgo } from "@/lib/agro/time-ago";
@@ -89,27 +93,30 @@ export default async function NewsPage({ params }: Props) {
     );
   }
 
-  let summary = news.aiSummary || null;
+  // A página abre na hora com o resumo salvo (ou um fallback). Se ainda não há
+  // resumo por IA, gera em SEGUNDO PLANO (após a resposta) e salva para a
+  // próxima visita — nunca trava o carregamento da notícia esperando a IA.
+  const summary =
+    news.aiSummary ||
+    smartSummary(news.description, news.title, news.source) ||
+    news.description;
 
-  if (!summary) {
-    const generatedSummary = await summarizeNewsWithAI({
+  if (!news.aiSummary) {
+    const article = {
       title: news.title,
       description: news.description,
       source: news.source,
+    };
+    after(async () => {
+      try {
+        const generated = await summarizeNewsWithAI(article);
+        if (generated) {
+          await updateNewsSummary({ id: news.id, aiSummary: generated });
+        }
+      } catch {
+        // IA indisponível — a próxima visita tenta de novo
+      }
     });
-
-    if (generatedSummary) {
-      summary = generatedSummary;
-
-      await updateNewsSummary({
-        id: news.id,
-        aiSummary: generatedSummary,
-      });
-    }
-  }
-
-  if (!summary) {
-    summary = (smartSummary(news.description, news.title, news.source) || news.description);
   }
 
   // Itens do Google News só trazem o título (descrição ≈ nome da fonte).

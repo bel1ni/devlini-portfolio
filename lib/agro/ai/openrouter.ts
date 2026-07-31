@@ -20,6 +20,32 @@ type Options = {
   timeoutMs?: number;
 };
 
+// Modelos de reasoning às vezes vazam o "pensamento" no lugar da resposta
+// (ex.: "We need to produce... Let's craft... Draft:..."). Rejeita esses casos
+// para não mostrar nem salvar lixo — o chamador cai no fallback.
+const REASONING_LEAK = [
+  "we need to",
+  "let's ",
+  "lets ",
+  "paragraph 1",
+  "paragraph 2",
+  "draft:",
+  "must be between",
+  "no markdown",
+  "let's craft",
+  "let's write",
+  "let's count",
+  "i need to",
+  "the user wants",
+  "okay, ",
+  "first, i",
+];
+
+function looksLikeReasoning(text: string): boolean {
+  const t = text.toLowerCase();
+  return REASONING_LEAK.some((phrase) => t.includes(phrase));
+}
+
 // Devolve o texto da resposta, ou null se todos os modelos gratuitos falharem.
 export async function chatCompletion(
   messages: Message[],
@@ -39,7 +65,14 @@ export async function chatCompletion(
           Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ model, messages, max_tokens: maxTokens, temperature }),
+        body: JSON.stringify({
+          model,
+          messages,
+          max_tokens: maxTokens,
+          temperature,
+          // Pede para o modelo NÃO devolver o raciocínio no texto (só a resposta)
+          reasoning: { exclude: true },
+        }),
         signal: AbortSignal.timeout(timeoutMs),
       });
 
@@ -51,8 +84,8 @@ export async function chatCompletion(
 
       const data = await response.json();
       const content = data?.choices?.[0]?.message?.content?.trim();
-      if (content) return content;
-      // vazio (modelo de reasoning consumiu os tokens) — tenta o próximo
+      // Vazio (reasoning consumiu os tokens) ou raciocínio vazado → próximo modelo
+      if (content && !looksLikeReasoning(content)) return content;
     } catch (error) {
       console.warn(`OpenRouter ${model} falhou:`, error);
     }
